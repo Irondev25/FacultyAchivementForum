@@ -66,7 +66,7 @@ public class TeacherProfile extends AppCompatActivity implements NavigationView.
 
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment, new HomeFragment(username)).commit();
-            navigationView.setCheckedItem(R.id.home);
+            navigationView.setCheckedItem(R.id.nav_home);
         }
     }
 

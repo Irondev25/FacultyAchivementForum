@@ -27,10 +27,12 @@ import androidx.lifecycle.ViewModelProviders;
 import com.bumptech.glide.Glide;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.irondev25.facultyachivementforum.GlobalVars;
 import com.irondev25.facultyachivementforum.R;
 import com.irondev25.facultyachivementforum.ui.signup.SignupActivity;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.home.HomeFragment;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.profileUpdate.pojo.ProfileObject;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.profileUpdate.viewModel.ProfileGetViewModel;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.profileUpdate.viewModel.ProfileUpdateViewModel;
@@ -136,6 +138,14 @@ public class ProfileUpdate extends Fragment {
             public void onChanged(ProfileObject profileObject) {
                 if(profileObject!=null){
                     Toast.makeText(getContext(), "Profile Update Successfully", Toast.LENGTH_SHORT).show();
+                    NavigationView navigationView = (NavigationView)getActivity().findViewById(R.id.teacher_profile_navigation);
+                    View headerView = navigationView.getHeaderView(0);
+                    CircleImageView circleImageView = headerView.findViewById(R.id.nav_header_profile_pic);
+                    Glide.with(headerView).load(profileObject.getProfile_pic()).into(circleImageView);
+
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.teacher_profile_fragment, new HomeFragment(profileObject.getUserName())).commit();
+                    navigationView.setCheckedItem(R.id.nav_home);
                 }
                 else{
                     Toast.makeText(getContext(), "Error At ProfileUpdate", Toast.LENGTH_SHORT).show();
@@ -233,7 +243,7 @@ public class ProfileUpdate extends Fragment {
                 lastName = lastNameTextInputLayout.getEditText().getText().toString();
                 dob = dobTextInputLayout.getEditText().getText().toString();
                 doj = dojTextInputLayout.getEditText().getText().toString();
-                mobileNumber = mobileNumberTextInputLayout.getEditText().toString();
+                mobileNumber = mobileNumberTextInputLayout.getEditText().getText().toString();
 //                sex = genderMap.get(sexAutoCompleteTextView.getText().toString());
 //                department = deptMap.get(departmentAutoCompleteTextView.getText().toString());
                 teacherProfileUpdate();

@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
+import com.irondev25.facultyachivementforum.GlobalVars;
 import com.irondev25.facultyachivementforum.R;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.profileUpdate.pojo.ProfileObject;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.profileUpdate.viewModel.ProfileGetViewModel;
@@ -37,6 +38,7 @@ public class HomeFragment extends Fragment implements Observer<BasicProfileObjec
     TextView firstNameTextView;
     TextView lastNameTextView;
     TextView middleNameTextView;
+    TextView mobileNumTextView;
     TextView dobTextView;
     TextView dojTextView;
     TextView genderTextView;
@@ -78,6 +80,7 @@ public class HomeFragment extends Fragment implements Observer<BasicProfileObjec
         firstNameTextView = view.findViewById(R.id.pd_first_name);
         middleNameTextView = view.findViewById(R.id.pd_middle_name);
         lastNameTextView = view.findViewById(R.id.pd_last_name);
+        mobileNumTextView = view.findViewById(R.id.pd_mob_num);
         dobTextView = view.findViewById(R.id.pd_dob);
         dojTextView = view.findViewById(R.id.pd_doj);
         genderTextView = view.findViewById(R.id.pd_sex);
@@ -103,9 +106,10 @@ public class HomeFragment extends Fragment implements Observer<BasicProfileObjec
             firstNameTextView.setText(profileObject.getFirstName());
             middleNameTextView.setText(profileObject.getMiddleName());
             lastNameTextView.setText(profileObject.getLastName());
+            mobileNumTextView.setText(profileObject.getMobileNum());
             dobTextView.setText(profileObject.getDob());
             dojTextView.setText(profileObject.getDoj());
-            genderTextView.setText(profileObject.getSex());
+            genderTextView.setText(GlobalVars.reverseGenderMap.get(profileObject.getSex()));
             departmentTextView.setText(profileObject.getDepartment());
             Integer numAward = profileObject.getAwardSet().size();
             numAwardTextView.setText(Integer.toString(numAward));
