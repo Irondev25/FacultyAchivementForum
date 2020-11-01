@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.publicTeacherAchivements.TeacherAchivements"
+    android:orientation="vertical">
+
+    <!--    <androidx.appcompat.widget.Toolbar-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:elevation="4dp"-->
+    <!--        android:id="@+id/teacher_detail_toolbar_public"-->
+    <!--        android:background="@color/colorPrimary"-->
+    <!--        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+    <!--        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+    <!--        />-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/teacher_detail_frag_cont"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/public_teacher_nav"
+        android:layout_gravity="bottom"
+        app:menu="@menu/public_achivement_menu"
+        android:background="?android:attr/windowBackground"/>
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/teacher_public_progress_bar"/>
+</LinearLayout>

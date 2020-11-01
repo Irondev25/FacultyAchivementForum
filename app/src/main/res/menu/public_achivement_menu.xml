@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_awards"
+        android:icon="@drawable/award_icon"
+        android:title="Awards"/>
+
+    <item
+        android:id="@+id/nav_conference"
+        android:icon="@drawable/icons8_conference_64"
+        android:title="Conference"/>
+    <item
+        android:id="@+id/nav_journal"
+        android:icon="@drawable/icons8_journal_100"
+        android:title="Journal"
+        />
+    <item
+        android:id="@+id/nav_workshop"
+        android:icon="@drawable/icons8_google_classroom_96"
+        android:title="Workshop"/>
+</menu>

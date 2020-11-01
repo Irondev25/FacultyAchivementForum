@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single"
+        android:id="@+id/home_menu_group">
+        <item
+            android:id="@+id/nav_home"
+            android:title="Home"
+            android:icon="@drawable/ic_home"/>
+        <item
+            android:id="@+id/nav_profile"
+            android:title="Profile"
+            android:icon="@drawable/ic_profile"/>
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout"
+            android:icon="@drawable/ic_logout"/>
+        <item
+            android:id="@+id/achivements"
+            android:title="Achivements">
+            <menu>
+                <item
+                    android:id="@+id/nav_awards_menu"
+                    android:title="Awards"
+                    android:icon="@drawable/award_icon"/>
+                <item
+                    android:title="Conferences"
+                    android:id="@+id/nav_conference_menu"
+                    android:icon="@drawable/icons8_conference_64"/>
+                <item
+                    android:title="Journal"
+                    android:id="@+id/nav_journal_menu"
+                    android:icon="@drawable/icons8_journal_100"/>
+                <item
+                    android:title="Workshop"
+                    android:id="@+id/nav_workshop_menu"
+                    android:icon="@drawable/icons8_google_classroom_96"/>
+            </menu>
+        </item>
+    </group>
+</menu>

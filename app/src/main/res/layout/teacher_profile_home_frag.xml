@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pd_header"
+        android:text="Your Profile"
+        android:gravity="center"
+        android:textSize="28sp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="28dp"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/default_profile_pic"
+        android:id="@+id/pd_profile_pic"
+        android:layout_marginBottom="28dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:background="@android:drawable/toast_frame"
+        android:id="@+id/pd_username"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="E-Mail"
+        android:id="@+id/pd_email"
+        android:background="@android:drawable/toast_frame"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="First Name"
+        android:id="@+id/pd_first_name"
+        android:background="@android:drawable/toast_frame"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Middle Name"
+        android:id="@+id/pd_middle_name"
+        android:background="@android:drawable/toast_frame"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Last Name"
+        android:id="@+id/pd_last_name"
+        android:background="@android:drawable/toast_frame"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date of Birth"
+        android:id="@+id/pd_dob"
+        android:background="@android:drawable/toast_frame"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date of Joining"
+        android:id="@+id/pd_doj"
+        android:background="@android:drawable/toast_frame"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gender"
+        android:id="@+id/pd_sex"
+        android:background="@android:drawable/toast_frame"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Department"
+        android:id="@+id/pd_department"
+        android:background="@android:drawable/toast_frame"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Number of Awards"
+        android:id="@+id/pd_award_num"
+        android:background="@android:drawable/toast_frame"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Number of Conference Papers"
+        android:id="@+id/pd_conference_num"
+        android:background="@android:drawable/toast_frame"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Number of Journal Papers"
+        android:id="@+id/pd_journal_num"
+        android:background="@android:drawable/toast_frame"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Number of Workshop held"
+        android:id="@+id/pd_workshop_num"
+        android:background="@android:drawable/toast_frame"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"/>
+</LinearLayout>
