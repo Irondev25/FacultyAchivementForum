@@ -111,11 +111,35 @@ public class HomeFragment extends Fragment implements Observer<BasicProfileObjec
             dojTextView.setText(profileObject.getDoj());
             genderTextView.setText(GlobalVars.reverseGenderMap.get(profileObject.getSex()));
             departmentTextView.setText(profileObject.getDepartment());
-            Integer numAward = profileObject.getAwardSet().size();
-            numAwardTextView.setText(Integer.toString(numAward));
-            numConferenceTextView.setText(Integer.toString(profileObject.getConferenceSets().size()));
-            numJournalTextView.setText(Integer.toString(profileObject.getJournalSets().size()));
-            numWorkshopTextView.setText(Integer.toString(profileObject.getWorkshopSets().size()));
+            Integer num = 0;
+            if(profileObject.getAwardSet() != null){
+                num = profileObject.getAwardSet().size();
+            }
+            else{
+                num = 0;
+            }
+            numAwardTextView.setText(Integer.toString(num));
+            if(profileObject.getConferenceSets() != null){
+                num = profileObject.getConferenceSets().size();
+            }
+            else{
+                num = 0;
+            }
+            numConferenceTextView.setText(Integer.toString(num));
+            if(profileObject.getJournalSets() != null){
+                num = profileObject.getJournalSets().size();
+            }
+            else{
+                num = 0;
+            }
+            numJournalTextView.setText(Integer.toString(num));
+            if(profileObject.getWorkshopSets() != null){
+                num = profileObject.getWorkshopSets().size();
+            }
+            else{
+                num = 0;
+            }
+            numWorkshopTextView.setText(Integer.toString(num));
         }
     }
 }

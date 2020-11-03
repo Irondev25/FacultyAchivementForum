@@ -5,6 +5,10 @@ import com.irondev25.facultyachivementforum.ui.login.pojo.TeacherSignIn;
 import com.irondev25.facultyachivementforum.ui.login.pojo.TokenPojo;
 import com.irondev25.facultyachivementforum.ui.publicTeacherAchivements.pojo.TeacherDetailPublic;
 import com.irondev25.facultyachivementforum.ui.signup.pojo.TeacherSignUp;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.award.pojo.AwardObject;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.conference.pojo.ConferenceObject;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.journal.pojo.JournalObject;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.workshop.pojo.WorkshopObject;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.profileUpdate.pojo.ProfileObject;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.pojo.BasicProfileObject;
 
@@ -78,6 +82,82 @@ public interface ApiInterface {
 
     @GET
     Call<BasicProfileObject> getBasicProfile(@Url String url);
+
+    @GET("/api/achivements/award/list")
+    Call<List<AwardObject>> getProfileAwards(@Header("Authorization") String token);
+
+    @GET("/api/achivements/conference/list")
+    Call<List<ConferenceObject>> getProfileConferences(@Header("Authorization") String token);
+
+    @GET("/api/achivements/journal/list")
+    Call<List<JournalObject>> getProfileJournal(@Header("Authorization") String token);
+
+    @GET("/api/achivements/workshop/list")
+    Call<List<WorkshopObject>> getProfileWorkshop(@Header("Authorization") String token);
+
+    @PUT
+    Call<AwardObject> updateProfileAward(@Header("Authorization") String token, @Url String url,
+                                         @Part("award_title")String awardTitle,
+                                         @Part("award_date") String awardDate,
+                                         @Part("award_details")String awardDetail,
+                                         @Part MultipartBody.Part certificate);
+
+    @POST("/api/achivements/award/create")
+    Call<AwardObject> createProfileAward(@Header("Authorization") String token, @Url String url,
+                                         @Part("award_title")String awardTitle,
+                                         @Part("award_date") String awardDate,
+                                         @Part("award_details")String awardDetail,
+                                         @Part MultipartBody.Part certificate);
+
+    @PUT
+    Call<ConferenceObject> updateProfileConference(@Header("Authorization") String token, @Url String url,
+                                                   @Part("name") String conferenceName,
+                                                   @Part("title") String paperTitle,
+                                                   @Part("date") String conferenceDate,
+                                                   @Part MultipartBody.Part certificate,
+                                                   @Part("conference_type") String conferenceType);
+
+    @POST("/api/achivements/conference/create")
+    Call<ConferenceObject> createProfileConference(@Header("Authorization") String token, @Url String url,
+                                                   @Part("name") String conferenceName,
+                                                   @Part("title") String paperTitle,
+                                                   @Part("date") String conferenceDate,
+                                                   @Part MultipartBody.Part certificate,
+                                                   @Part("conference_type") String conferenceType);
+
+    @PUT
+    Call<JournalObject> updateProfileJournal(@Header("Authorization") String token, @Url String url,
+                                             @Part("journal_title") String journalTitle,
+                                             @Part("paper_title") String paperTitle,
+                                             @Part("date") String journalDate,
+                                             @Part("journal_type") String journalType,
+                                             @Part("impact_factor") String journalImapactFactor,
+                                             @Part MultipartBody.Part certificate);
+
+    @POST("/api/achivements/journal/create")
+    Call<JournalObject> createProfileJournal(@Header("Authorization") String token, @Url String url,
+                                             @Part("journal_title") String journalTitle,
+                                             @Part("paper_title") String paperTitle,
+                                             @Part("date") String journalDate,
+                                             @Part("journal_type") String journalType,
+                                             @Part("impact_factor") String journalImapactFactor,
+                                             @Part MultipartBody.Part certificate);
+
+    @PUT
+    Call<WorkshopObject> updateProfileWorkshop(@Header("Authorization") String token, @Url String url,
+                                               @Part("topic") String workshopTopic,
+                                               @Part("date") String workshopDate,
+                                               @Part("workshop_type") String workshopType,
+                                               @Part("location") String workshopLocation,
+                                               @Part MultipartBody.Part certificate);
+
+    @POST("/api/achivements/workshop/create")
+    Call<WorkshopObject> createProfileWorkshop(@Header("Authorization") String token, @Url String url,
+                                               @Part("topic") String workshopTopic,
+                                               @Part("date") String workshopDate,
+                                               @Part("workshop_type") String workshopType,
+                                               @Part("location") String workshopLocation,
+                                               @Part MultipartBody.Part certificate);
 }
 
 

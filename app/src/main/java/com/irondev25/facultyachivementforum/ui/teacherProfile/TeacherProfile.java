@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
@@ -17,7 +16,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -25,8 +23,13 @@ import com.google.android.material.navigation.NavigationView;
 import com.irondev25.facultyachivementforum.PreferenceVariables;
 import com.irondev25.facultyachivementforum.R;
 import com.irondev25.facultyachivementforum.ui.login.LoginActivity;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.award.ProfileAward;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.conference.ProfileConference;
+
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.home.HomeFragment;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.journal.ProfileJournal;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.profileUpdate.ProfileUpdate;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.workshop.ProfileWorkshop;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.pojo.BasicProfileObject;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.viewModel.BasicProfileViewModel;
 
@@ -40,6 +43,11 @@ public class TeacherProfile extends AppCompatActivity implements NavigationView.
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private TextView navUsername;
     private CircleImageView imageView;
+
+//    private List<AwardObject> awards;
+//    private List<ConferenceObject> conferences;
+//    private List<JournalObject> journals;
+//    private List<WorkshopObject> workshops;
 
     private static final String TAG = "TeacherProfile";
 
@@ -103,7 +111,24 @@ public class TeacherProfile extends AppCompatActivity implements NavigationView.
                 clearPreverenceVariable();
                 startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                 break;
-
+            case R.id.nav_awards_menu:
+                Log.d(TAG, "onNavigationItemSelected: nav_award_menu");
+                getSupportFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment, new ProfileAward(token)).commit();
+                break;
+            case R.id.nav_conference_menu:
+                Log.d(TAG, "onNavigationItemSelected: nav_conference_menu");
+                getSupportFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment,
+                        new ProfileConference(token)).commit();
+                break;
+            case R.id.nav_journal_menu:
+                Log.d(TAG, "onNavigationItemSelected: nav_journal_menu");
+                getSupportFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment,
+                        new ProfileJournal(token)).commit();
+                break;
+            case R.id.nav_workshop_menu:
+                Log.d(TAG, "onNavigationItemSelected: nav_workshop_menu");
+                getSupportFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment,
+                        new ProfileWorkshop(token)).commit();
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
@@ -131,6 +156,10 @@ public class TeacherProfile extends AppCompatActivity implements NavigationView.
             @Override
             public void onChanged(BasicProfileObject basicProfileObject) {
 //                navUsername.setText(basicProfileObject.getUsername());
+//                awards = basicProfileObject.getAwardSet();
+//                conferences = basicProfileObject.getConferenceSets();
+//                journals = basicProfileObject.getJournalSets();
+//                workshops = basicProfileObject.getWorkshopSets();
                 Glide.with(getApplicationContext()).load(basicProfileObject.getProfilePic()).into(imageView);
             }
         });

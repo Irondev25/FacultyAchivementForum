@@ -1,6 +1,10 @@
 package com.irondev25.facultyachivementforum.ui.teacherProfile.pojo;
 
 import com.google.gson.annotations.SerializedName;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.award.pojo.AwardObject;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.conference.pojo.ConferenceObject;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.journal.pojo.JournalObject;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.workshop.pojo.WorkshopObject;
 
 import java.util.List;
 
@@ -29,14 +33,13 @@ public class BasicProfileObject {
     String profilePic;
 
     @SerializedName("award_set")
-    List<AwardSet> awardSet;
-
+    List<AwardObject> awardSet;
     @SerializedName("conference_set")
-    List<ConferenceSet> conferenceSets;
+    List<ConferenceObject> conferenceSets;
     @SerializedName("journal_set")
-    List<JournalSet> journalSets;
+    List<JournalObject> journalSets;
     @SerializedName("workshop_set")
-    List<WorkshopSet> workshopSets;
+    List<WorkshopObject> workshopSets;
 
     Throwable error;
 
@@ -136,87 +139,35 @@ public class BasicProfileObject {
         this.department = department;
     }
 
-    public List<AwardSet> getAwardSet() {
+    public List<AwardObject> getAwardSet() {
         return awardSet;
     }
 
-    public void setAwardSet(List<AwardSet> awardSet) {
+    public void setAwardSet(List<AwardObject> awardSet) {
         this.awardSet = awardSet;
     }
 
-    public List<ConferenceSet> getConferenceSets() {
+    public List<ConferenceObject> getConferenceSets() {
         return conferenceSets;
     }
 
-    public void setConferenceSets(List<ConferenceSet> conferenceSets) {
+    public void setConferenceSets(List<ConferenceObject> conferenceSets) {
         this.conferenceSets = conferenceSets;
     }
 
-    public List<JournalSet> getJournalSets() {
+    public List<JournalObject> getJournalSets() {
         return journalSets;
     }
 
-    public void setJournalSets(List<JournalSet> journalSets) {
+    public void setJournalSets(List<JournalObject> journalSets) {
         this.journalSets = journalSets;
     }
 
-    public List<WorkshopSet> getWorkshopSets() {
+    public List<WorkshopObject> getWorkshopSets() {
         return workshopSets;
     }
 
-    public void setWorkshopSets(List<WorkshopSet> workshopSets) {
+    public void setWorkshopSets(List<WorkshopObject> workshopSets) {
         this.workshopSets = workshopSets;
-    }
-
-    class AwardSet {
-        @SerializedName("award_title")
-        String AwardTitle;
-
-        public String getAwardTitle() {
-            return AwardTitle;
-        }
-
-        public void setAwardTitle(String awardTitle) {
-            AwardTitle = awardTitle;
-        }
-    }
-
-    class ConferenceSet {
-        @SerializedName("conference_title")
-        String conferenceTitle;
-
-        public String getConferenceTitle() {
-            return conferenceTitle;
-        }
-
-        public void setConferenceTitle(String conferenceTitle) {
-            this.conferenceTitle = conferenceTitle;
-        }
-    }
-
-    class JournalSet {
-        @SerializedName("journal_title")
-        String journalTitle;
-
-        public String getJournalTitle() {
-            return journalTitle;
-        }
-
-        public void setJournalTitle(String journalTitle) {
-            this.journalTitle = journalTitle;
-        }
-    }
-
-    class WorkshopSet {
-        @SerializedName("topic")
-        String topic;
-
-        public String getTopic() {
-            return topic;
-        }
-
-        public void setTopic(String topic) {
-            this.topic = topic;
-        }
     }
 }

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="4dp"
+    android:layout_margin="2dp"
+    app:cardElevation="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/teacher_profile_award_title_container"
+            android:layout_margin="4dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Award Title"
+                android:layout_marginRight="4dp"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/black"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"/>
+            <TextView
+                android:id="@+id/teacher_profile_award_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="award_title"
+                android:layout_marginLeft="5dp"
+                android:textSize="20sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/teacher_profile_award_date_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/teacher_profile_award_title_container"
+            android:layout_margin="4dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date Awarded"
+                android:layout_marginRight="4dp"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/black"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"/>
+            <TextView
+                android:id="@+id/teacher_profile_award_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10-02-2020"
+                android:layout_marginLeft="5dp"
+                android:textSize="20sp"/>
+        </LinearLayout>
+        <View
+            android:id="@+id/hz_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black"
+            android:layout_below="@+id/teacher_profile_award_date_container"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/teacher_profile_detail_label"
+            android:text="Award Detail"
+            android:textStyle="bold"
+            android:layout_below="@+id/hz_line"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/teacher_profile_award_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/teacher_profile_detail_label"
+            android:text="Sample Detail"
+            android:textSize="20sp"/>
+        <!--        <com.google.android.material.button.MaterialButton-->
+        <!--            android:id="@+id/award_download_certificate_public"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_below="@+id/award_detail_public"-->
+        <!--            android:text="Download Certificate"-->
+        <!--            android:textSize="12sp"-->
+        <!--            android:drawableLeft="@android:drawable/stat_sys_download"/>-->
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="horizontal">-->
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--        </LinearLayout>-->
+        <!--        <ImageButton-->
+        <!--            android:layout_width="32dp"-->
+        <!--            android:layout_height="32dp"-->
+        <!--            android:src="@drawable/award_icon"-->
+        <!--            android:layout_below="@+id/award_detail_public"-->
+        <!--            />-->
+        <Button
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Certificate"
+            android:textSize="14sp"
+            android:id="@+id/teacher_profile_certificate_download_button"
+            android:layout_below="@+id/teacher_profile_award_detail"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/teacher_profile_edit_button"
+            android:text="Edit"
+            android:backgroundTint="#0275d8"
+            android:layout_below="@+id/teacher_profile_award_detail"
+            android:layout_toLeftOf="@+id/teacher_profile_delete_button"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/teacher_profile_delete_button"
+            android:text="Delete"
+            android:backgroundTint="#d9534f"
+            android:shadowColor="#d9534f"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@+id/teacher_profile_award_detail"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
