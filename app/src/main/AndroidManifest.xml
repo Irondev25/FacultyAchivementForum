@@ -14,8 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FacultyAchivementForum"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.teacherProfile.fragment.award.ProfileAwardEdit"
-            android:theme="@style/Theme.LoggedUser"></activity>
         <activity
             android:name=".ui.teacherProfile.TeacherProfile"
             android:theme="@style/Theme.LoggedUser"></activity>
