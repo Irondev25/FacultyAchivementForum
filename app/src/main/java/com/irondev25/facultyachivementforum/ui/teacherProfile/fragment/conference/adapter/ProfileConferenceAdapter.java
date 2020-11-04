@@ -26,9 +26,9 @@ public class ProfileConferenceAdapter extends RecyclerView.Adapter<ProfileConfer
 
     public void setResult(List<ConferenceObject> conferences){
         this.conferences = conferences;
-        for(int i=0; i<7; i++){
-            this.conferences.add(conferences.get(0));
-        }
+//        for(int i=0; i<7; i++){
+//            this.conferences.add(conferences.get(0));
+//        }
         notifyDataSetChanged();
     }
 

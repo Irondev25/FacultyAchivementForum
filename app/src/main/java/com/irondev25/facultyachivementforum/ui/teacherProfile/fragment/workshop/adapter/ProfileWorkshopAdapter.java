@@ -27,9 +27,9 @@ public class ProfileWorkshopAdapter extends RecyclerView.Adapter<ProfileWorkshop
 
     public void setResult(List<WorkshopObject> workshops){
         this.workshops = workshops;
-        for(int i=0; i<7; i++){
-            this.workshops.add(workshops.get(0));
-        }
+//        for(int i=0; i<7; i++){
+//            this.workshops.add(workshops.get(0));
+//        }
         notifyDataSetChanged();
     }
 

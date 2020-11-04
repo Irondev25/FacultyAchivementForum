@@ -28,9 +28,9 @@ public class ProfileJournalAdapter extends RecyclerView.Adapter<ProfileJournalAd
 
     public void setResult(List<JournalObject> journals){
         this.journals = journals;
-        for(int i=0; i<7; i++){
-            this.journals.add(journals.get(0));
-        }
+//        for(int i=0; i<7; i++){
+//            this.journals.add(journals.get(0));
+//        }
         notifyDataSetChanged();
     }
 

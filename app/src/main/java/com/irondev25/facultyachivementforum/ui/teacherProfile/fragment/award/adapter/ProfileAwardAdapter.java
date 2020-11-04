@@ -28,10 +28,10 @@ public class ProfileAwardAdapter extends RecyclerView.Adapter<ProfileAwardAdapte
     }
 
     public void setResult(List<AwardObject> awards){
-        this.awards = awards;
-        for(int i=0; i<7; i++){
-            this.awards.add(awards.get(0));
-        }
+//        this.awards = awards;
+//        for(int i=0; i<7; i++){
+//            this.awards.add(awards.get(0));
+//        }
         notifyDataSetChanged();
     }
 
