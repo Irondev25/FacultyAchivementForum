@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.irondev25.facultyachivementforum.GlobalVars;
 import com.irondev25.facultyachivementforum.R;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.conference.pojo.ConferenceObject;
 
@@ -36,7 +37,7 @@ public class ProfileConferenceAdapter extends RecyclerView.Adapter<ProfileConfer
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.teacher_profile_conference_card,parent,false);
-        return new CardViewHolder(view,myCardButtons);
+        return new CardViewHolder(view);
     }
 
     @Override
@@ -45,10 +46,32 @@ public class ProfileConferenceAdapter extends RecyclerView.Adapter<ProfileConfer
         holder.conferenceName.setText(conference.getConferenceName());
         holder.paperTitle.setText(conference.getConferencePaperTitle());
         holder.conferenceDate.setText(conference.getConferenceDate());
+        holder.conferenceType.setText(GlobalVars.paperTypes.get(conference.getConferenceType()));
         if(conference.getCertificate() == null) {
             holder.certificateDownload.setVisibility(View.GONE);
         }
         downloadUrl = conference.getCertificate();
+
+        holder.certificateDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myCardButtons.onDownloadButtonClick(downloadUrl);
+            }
+        });
+
+        holder.editConference.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myCardButtons.onEditClickButton(conference);
+            }
+        });
+
+        holder.deleteConference.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myCardButtons.onDeleteClickButton(conference);
+            }
+        });
     }
 
     @Override
@@ -69,10 +92,8 @@ public class ProfileConferenceAdapter extends RecyclerView.Adapter<ProfileConfer
         public Button editConference;
         public Button deleteConference;
 
-        public MyCardButtons myCardButtons;
 
-
-        public CardViewHolder(@NonNull View itemView,MyCardButtons myCardButtons) {
+        public CardViewHolder(@NonNull View itemView) {
             super(itemView);
             conferenceName = itemView.findViewById(R.id.teacher_profile_conference_name);
             paperTitle = itemView.findViewById(R.id.teacher_profile_conference_paper_title);
@@ -81,34 +102,12 @@ public class ProfileConferenceAdapter extends RecyclerView.Adapter<ProfileConfer
             certificateDownload = itemView.findViewById(R.id.teacher_profile_conference_certificate_download);
             editConference = itemView.findViewById(R.id.teacher_profile_conference_edit_button);
             deleteConference = itemView.findViewById(R.id.teacher_profile_conference_delete_button);
-
-            this.myCardButtons = myCardButtons;
-            certificateDownload.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myCardButtons.onDownloadButtonClick(downloadUrl);
-                }
-            });
-
-            editConference.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myCardButtons.onEditClickButton();
-                }
-            });
-
-            deleteConference.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myCardButtons.onDeleteClickButton();
-                }
-            });
         }
     }
 
     public interface MyCardButtons {
         void onDownloadButtonClick(String url);
-        void onEditClickButton();
-        void onDeleteClickButton();
+        void onEditClickButton(ConferenceObject conference);
+        void onDeleteClickButton(ConferenceObject conference);
     }
 }

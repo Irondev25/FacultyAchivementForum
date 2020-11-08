@@ -21,6 +21,7 @@ import com.irondev25.facultyachivementforum.R;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.journal.adapter.ProfileJournalAdapter;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.journal.pojo.JournalObject;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.journal.viewModel.JournalViewModel;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.journalEdit.ProfileJournalEdit;
 
 import java.util.List;
 
@@ -76,12 +77,13 @@ public class ProfileJournal extends Fragment implements ProfileJournalAdapter.My
     }
 
     @Override
-    public void onEditClickButton() {
-        Log.d(TAG, "onEditClickButton: edit button clicked");
+    public void onEditClickButton(JournalObject journal) {
+        getParentFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment,
+                new ProfileJournalEdit(journal,token)).commit();
     }
 
     @Override
-    public void onDeleteClickButton() {
+    public void onDeleteClickButton(JournalObject journal) {
         Log.d(TAG, "onDeleteClickButton: delete button clicked");
     }
 }

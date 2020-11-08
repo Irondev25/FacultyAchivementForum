@@ -21,6 +21,7 @@ import com.irondev25.facultyachivementforum.R;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.conference.adapter.ProfileConferenceAdapter;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.conference.pojo.ConferenceObject;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.conference.viewModel.ConferenceViewModel;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.confernceEdit.ProfileConferenceEdit;
 
 import java.util.List;
 
@@ -77,12 +78,13 @@ public class ProfileConference extends Fragment implements ProfileConferenceAdap
     }
 
     @Override
-    public void onEditClickButton() {
-        Log.d(TAG, "onEditClickButton: edit button clicked");
+    public void onEditClickButton(ConferenceObject conference) {
+        getParentFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment,
+                new ProfileConferenceEdit(conference,token)).commit();
     }
 
     @Override
-    public void onDeleteClickButton() {
+    public void onDeleteClickButton(ConferenceObject conference) {
         Log.d(TAG, "onDeleteClickButton: delete button clicked");
     }
 }

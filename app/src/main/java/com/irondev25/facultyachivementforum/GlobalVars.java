@@ -23,6 +23,7 @@ public interface GlobalVars {
 
     public static HashMap<String, String> paperTypes = new HashMap<>();
     public static HashMap<String, String> revPaperTypes = new HashMap<>();
+    public static ArrayList<String> paperList = new ArrayList<>();
 
     public static void genPaperTypes(){
         if(paperTypes.size()!=0) return;
@@ -38,6 +39,7 @@ public interface GlobalVars {
 
         for(String key:paperTypes.keySet()){
             revPaperTypes.put(paperTypes.get(key),key);
+            paperList.add(paperTypes.get(key));
         }
     }
 

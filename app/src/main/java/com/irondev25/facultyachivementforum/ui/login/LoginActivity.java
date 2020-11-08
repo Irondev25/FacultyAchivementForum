@@ -2,12 +2,17 @@ package com.irondev25.facultyachivementforum.ui.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +42,14 @@ public class LoginActivity extends AppCompatActivity implements PreferenceVariab
         setContentView(R.layout.activity_login);
 
 //        getActionBar().setTitle("Login");
+
+//        checkPermission();
+        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if(Build.VERSION.SDK_INT >= 23){
+            checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,0);
+//            requestPermissions(permissions,0);
+            checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,0);
+        }
 
 
         initFields();
@@ -142,5 +155,28 @@ public class LoginActivity extends AppCompatActivity implements PreferenceVariab
     @Override
     public void onBackPressed() {
         finishAffinity();
+    }
+
+    public void checkPermission(String permission, int requestCode)
+    {
+
+        // Checking if permission is not granted
+        int perm = ContextCompat.checkSelfPermission(
+                LoginActivity.this,
+                permission);
+        if (perm == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat
+                    .requestPermissions(
+                            LoginActivity.this,
+                            new String[] { permission },
+                            requestCode);
+        }
+        else {
+            Toast
+                    .makeText(LoginActivity.this,
+                            "Permission already granted",
+                            Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 }

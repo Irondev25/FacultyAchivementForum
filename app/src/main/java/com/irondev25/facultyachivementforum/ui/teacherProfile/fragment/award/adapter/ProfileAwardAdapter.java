@@ -28,7 +28,7 @@ public class ProfileAwardAdapter extends RecyclerView.Adapter<ProfileAwardAdapte
     }
 
     public void setResult(List<AwardObject> awards){
-//        this.awards = awards;
+        this.awards = awards;
 //        for(int i=0; i<7; i++){
 //            this.awards.add(awards.get(0));
 //        }
@@ -40,7 +40,7 @@ public class ProfileAwardAdapter extends RecyclerView.Adapter<ProfileAwardAdapte
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.teacher_profile_award_card,
                 parent,false);
-        return new CardViewHolder(view, myCardButtons);
+        return new CardViewHolder(view);
     }
 
 //    @RequiresApi(api = Build.VERSION_CODES.N)
@@ -57,7 +57,29 @@ public class ProfileAwardAdapter extends RecyclerView.Adapter<ProfileAwardAdapte
         if(award.getCertificate() == null) {
             holder.downloadButton.setVisibility(View.GONE);
         }
+        holder.awardDetail.setText(award.getAwardDetails());
         downloadUrl = award.getCertificate();
+
+        holder.downloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myCardButtons.onDownloadButtonClick(downloadUrl);
+            }
+        });
+
+        holder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myCardButtons.onEditClickButton(award);
+            }
+        });
+
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myCardButtons.onDeleteClickButton(award);
+            }
+        });
     }
 
     @Override
@@ -75,9 +97,8 @@ public class ProfileAwardAdapter extends RecyclerView.Adapter<ProfileAwardAdapte
         public Button downloadButton;
         public Button editButton;
         public Button deleteButton;
-        public MyCardButtons myCardButtons;
 
-        public CardViewHolder(@NonNull View itemView, MyCardButtons myCardButtons) {
+        public CardViewHolder(@NonNull View itemView) {
             super(itemView);
             awardTitleTextView = itemView.findViewById(R.id.teacher_profile_award_title);
             awardDateTextView = itemView.findViewById(R.id.teacher_profile_award_date);
@@ -85,27 +106,6 @@ public class ProfileAwardAdapter extends RecyclerView.Adapter<ProfileAwardAdapte
             downloadButton = itemView.findViewById(R.id.teacher_profile_certificate_download_button);
             editButton = itemView.findViewById(R.id.teacher_profile_edit_button);
             deleteButton = itemView.findViewById(R.id.teacher_profile_delete_button);
-            this.myCardButtons = myCardButtons;
-            downloadButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myCardButtons.onDownloadButtonClick(downloadUrl);
-                }
-            });
-
-            editButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myCardButtons.onEditClickButton();
-                }
-            });
-
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myCardButtons.onDeleteClickButton();
-                }
-            });
         }
 
 //        @Override
@@ -116,7 +116,7 @@ public class ProfileAwardAdapter extends RecyclerView.Adapter<ProfileAwardAdapte
 
     public interface MyCardButtons {
         void onDownloadButtonClick(String url);
-        void onEditClickButton();
-        void onDeleteClickButton();
+        void onEditClickButton(AwardObject awardObject);
+        void onDeleteClickButton(AwardObject awardObject);
     }
 }

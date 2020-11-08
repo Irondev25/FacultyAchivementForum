@@ -38,7 +38,7 @@ public class ProfileJournalAdapter extends RecyclerView.Adapter<ProfileJournalAd
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.teacher_profile_journal_card,parent,false);
-        return new CardViewHolder(view, myCardButtons);
+        return new CardViewHolder(view);
     }
 
     @Override
@@ -63,12 +63,30 @@ public class ProfileJournalAdapter extends RecyclerView.Adapter<ProfileJournalAd
             holder.downloadButton.setVisibility(View.GONE);
         }
         downloadUrl = journal.getCertificate();
+        holder.downloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myCardButtons.onDownloadButtonClick(downloadUrl);
+            }
+        });
+        holder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myCardButtons.onEditClickButton(journal);
+            }
+        });
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myCardButtons.onDeleteClickButton(journal);
+            }
+        });
     }
 
     public interface MyCardButtons {
         void onDownloadButtonClick(String url);
-        void onEditClickButton();
-        void onDeleteClickButton();
+        void onEditClickButton(JournalObject journal);
+        void onDeleteClickButton(JournalObject journal);
     }
 
     public class CardViewHolder extends RecyclerView.ViewHolder {
@@ -80,9 +98,8 @@ public class ProfileJournalAdapter extends RecyclerView.Adapter<ProfileJournalAd
         public Button downloadButton;
         public Button editButton;
         public Button deleteButton;
-        public MyCardButtons myCardButtons;
 
-        public CardViewHolder(@NonNull View itemView, MyCardButtons myCardButtons) {
+        public CardViewHolder(@NonNull View itemView) {
             super(itemView);
             journalNameTextView = itemView.findViewById(R.id.teacher_profile_journal_name);
             paperTitleTextView = itemView.findViewById(R.id.teacher_profile_journal_paper_title);
@@ -92,25 +109,6 @@ public class ProfileJournalAdapter extends RecyclerView.Adapter<ProfileJournalAd
             downloadButton = itemView.findViewById(R.id.teacher_profile_journal_certificate_download_button);
             editButton = itemView.findViewById(R.id.teacher_profile_journal_edit_button);
             deleteButton = itemView.findViewById(R.id.teacher_profile_journal_delete_button);
-            this.myCardButtons = myCardButtons;
-            downloadButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myCardButtons.onDownloadButtonClick(downloadUrl);
-                }
-            });
-            editButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myCardButtons.onEditClickButton();
-                }
-            });
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myCardButtons.onDeleteClickButton();
-                }
-            });
         }
     }
 }

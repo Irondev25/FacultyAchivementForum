@@ -38,11 +38,11 @@ public class ProfileWorkshopAdapter extends RecyclerView.Adapter<ProfileWorkshop
     public CardItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.teacher_profile_workshop_card,
                 parent,false);
-        return new CardItemHolder(view, myCardButtons);
+        return new CardItemHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CardItemHolder holder, int position) {
+        public void onBindViewHolder(@NonNull CardItemHolder holder, int position) {
         WorkshopObject workshop = workshops.get(position);
         holder.workshopTitleTextView.setText(workshop.getTopic());
         holder.workshopLocationTextView.setText(workshop.getLocation());
@@ -52,6 +52,24 @@ public class ProfileWorkshopAdapter extends RecyclerView.Adapter<ProfileWorkshop
             holder.downloadButton.setVisibility(View.GONE);
         }
         downloadUrl = workshop.getCertificate();
+        holder.downloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myCardButtons.onDownloadButtonClick(downloadUrl);
+            }
+        });
+        holder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myCardButtons.onEditClickButton(workshop);
+            }
+        });
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myCardButtons.onDeleteClickButton(workshop);
+            }
+        });
     }
 
     @Override
@@ -71,11 +89,7 @@ public class ProfileWorkshopAdapter extends RecyclerView.Adapter<ProfileWorkshop
         public Button editButton;
         public Button deleteButton;
 
-        public MyCardButtons myCardButtons;
-
-        public WorkshopAdapterPublic.OnDownloadClick onDownloadClick;
-
-        public CardItemHolder(@NonNull View itemView, MyCardButtons myCardButtons) {
+        public CardItemHolder(@NonNull View itemView) {
             super(itemView);
             workshopTitleTextView = itemView.findViewById(R.id.teacher_profile_workshop_name);
             workshopLocationTextView = itemView.findViewById(R.id.teacher_profile_workshop_location);
@@ -84,31 +98,12 @@ public class ProfileWorkshopAdapter extends RecyclerView.Adapter<ProfileWorkshop
             downloadButton = itemView.findViewById(R.id.teacher_profile_workshop_certificate_download_button);
             editButton = itemView.findViewById(R.id.teacher_profile_workshop_edit_button);
             deleteButton = itemView.findViewById(R.id.teacher_profile_workshop_delete_button);
-            this.myCardButtons = myCardButtons;
-            downloadButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myCardButtons.onDownloadButtonClick(downloadUrl);
-                }
-            });
-            editButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myCardButtons.onEditClickButton();
-                }
-            });
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myCardButtons.onDeleteClickButton();
-                }
-            });
         }
     }
 
     public interface MyCardButtons {
         void onDownloadButtonClick(String url);
-        void onEditClickButton();
-        void onDeleteClickButton();
+        void onEditClickButton(WorkshopObject workshop);
+        void onDeleteClickButton(WorkshopObject workshop);
     }
 }

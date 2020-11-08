@@ -70,4 +70,6 @@ dependencies {
 
     //material spinner
     implementation 'com.github.ganfra:material-spinner:2.0.0'
+    //filepicker
+    implementation 'com.droidninja:filepicker:2.2.4'
 }

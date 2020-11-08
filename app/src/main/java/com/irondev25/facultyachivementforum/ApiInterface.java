@@ -15,7 +15,9 @@ import com.irondev25.facultyachivementforum.ui.teacherProfile.pojo.BasicProfileO
 import java.util.List;
 
 import okhttp3.MultipartBody;
+import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -95,68 +97,76 @@ public interface ApiInterface {
     @GET("/api/achivements/workshop/list")
     Call<List<WorkshopObject>> getProfileWorkshop(@Header("Authorization") String token);
 
+    @Multipart
     @PUT
     Call<AwardObject> updateProfileAward(@Header("Authorization") String token, @Url String url,
-                                         @Part("award_title")String awardTitle,
-                                         @Part("award_date") String awardDate,
-                                         @Part("award_details")String awardDetail,
+                                         @Part("award_title")RequestBody awardTitle,
+                                         @Part("award_date") RequestBody awardDate,
+                                         @Part("award_details")RequestBody awardDetail,
                                          @Part MultipartBody.Part certificate);
 
+    @Multipart
     @POST("/api/achivements/award/create")
     Call<AwardObject> createProfileAward(@Header("Authorization") String token, @Url String url,
-                                         @Part("award_title")String awardTitle,
-                                         @Part("award_date") String awardDate,
-                                         @Part("award_details")String awardDetail,
+                                         @Part("award_title")RequestBody awardTitle,
+                                         @Part("award_date") RequestBody awardDate,
+                                         @Part("award_details")RequestBody awardDetail,
                                          @Part MultipartBody.Part certificate);
 
+    @Multipart
     @PUT
     Call<ConferenceObject> updateProfileConference(@Header("Authorization") String token, @Url String url,
-                                                   @Part("name") String conferenceName,
-                                                   @Part("title") String paperTitle,
-                                                   @Part("date") String conferenceDate,
+                                                   @Part("name") RequestBody conferenceName,
+                                                   @Part("title") RequestBody paperTitle,
+                                                   @Part("date") RequestBody conferenceDate,
                                                    @Part MultipartBody.Part certificate,
-                                                   @Part("conference_type") String conferenceType);
+                                                   @Part("conference_type") RequestBody conferenceType);
 
+    @Multipart
     @POST("/api/achivements/conference/create")
     Call<ConferenceObject> createProfileConference(@Header("Authorization") String token, @Url String url,
-                                                   @Part("name") String conferenceName,
-                                                   @Part("title") String paperTitle,
-                                                   @Part("date") String conferenceDate,
+                                                   @Part("name") RequestBody conferenceName,
+                                                   @Part("title") RequestBody paperTitle,
+                                                   @Part("date") RequestBody conferenceDate,
                                                    @Part MultipartBody.Part certificate,
-                                                   @Part("conference_type") String conferenceType);
+                                                   @Part("conference_type") RequestBody conferenceType);
 
+    @Multipart
     @PUT
     Call<JournalObject> updateProfileJournal(@Header("Authorization") String token, @Url String url,
-                                             @Part("journal_title") String journalTitle,
-                                             @Part("paper_title") String paperTitle,
-                                             @Part("date") String journalDate,
-                                             @Part("journal_type") String journalType,
-                                             @Part("impact_factor") String journalImapactFactor,
+                                             @Part("journal_title") RequestBody journalTitle,
+                                             @Part("paper_title") RequestBody paperTitle,
+                                             @Part("date") RequestBody journalDate,
+                                             @Part("journal_type") RequestBody journalType,
+                                             @Part("impact_factor") RequestBody journalImapactFactor,
                                              @Part MultipartBody.Part certificate);
 
+    @Multipart
     @POST("/api/achivements/journal/create")
     Call<JournalObject> createProfileJournal(@Header("Authorization") String token, @Url String url,
-                                             @Part("journal_title") String journalTitle,
-                                             @Part("paper_title") String paperTitle,
-                                             @Part("date") String journalDate,
-                                             @Part("journal_type") String journalType,
-                                             @Part("impact_factor") String journalImapactFactor,
+                                             @Part("journal_title") RequestBody journalTitle,
+                                             @Part("paper_title") RequestBody paperTitle,
+                                             @Part("date") RequestBody journalDate,
+                                             @Part("journal_type") RequestBody journalType,
+                                             @Part("impact_factor") RequestBody journalImapactFactor,
                                              @Part MultipartBody.Part certificate);
 
+    @Multipart
     @PUT
     Call<WorkshopObject> updateProfileWorkshop(@Header("Authorization") String token, @Url String url,
-                                               @Part("topic") String workshopTopic,
-                                               @Part("date") String workshopDate,
-                                               @Part("workshop_type") String workshopType,
-                                               @Part("location") String workshopLocation,
+                                               @Part("topic") RequestBody workshopTopic,
+                                               @Part("date") RequestBody workshopDate,
+                                               @Part("workshop_type") RequestBody workshopType,
+                                               @Part("location") RequestBody workshopLocation,
                                                @Part MultipartBody.Part certificate);
 
+    @Multipart
     @POST("/api/achivements/workshop/create")
     Call<WorkshopObject> createProfileWorkshop(@Header("Authorization") String token, @Url String url,
-                                               @Part("topic") String workshopTopic,
-                                               @Part("date") String workshopDate,
-                                               @Part("workshop_type") String workshopType,
-                                               @Part("location") String workshopLocation,
+                                               @Part("topic") RequestBody workshopTopic,
+                                               @Part("date") RequestBody workshopDate,
+                                               @Part("workshop_type") RequestBody workshopType,
+                                               @Part("location") RequestBody workshopLocation,
                                                @Part MultipartBody.Part certificate);
 }
 

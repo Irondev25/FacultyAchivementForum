@@ -178,12 +178,14 @@ public class ProfileUpdate extends Fragment {
         });
 
         dojTextInputLayout = view.findViewById(R.id.profile_doj);
-        dojTextInputLayout.getEditText().setOnClickListener(new View.OnClickListener() {
+        dojTextInputLayout.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                DialogFragment newFragment = new DatePickerFragment();
-                newFragment.setTargetFragment(ProfileUpdate.this,REQUEST_CODE_DOJ);
-                newFragment.show(fm,"datePicker");
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    DialogFragment newFragment = new DatePickerFragment();
+                    newFragment.setTargetFragment(ProfileUpdate.this,REQUEST_CODE_DOJ);
+                    newFragment.show(fm,"datePicker");
+                }
             }
         });
         mobileNumberTextInputLayout = view.findViewById(R.id.profile_mob_no);
@@ -206,7 +208,9 @@ public class ProfileUpdate extends Fragment {
                     actv.setText("");
                 }
                 else{
-                    actv.setText(currentVal);
+                    if(actv.getText().toString().equals("")){
+                        actv.setText(currentVal);
+                    }
                 }
             }
         });

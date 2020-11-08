@@ -21,6 +21,7 @@ import com.irondev25.facultyachivementforum.R;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.workshop.adapter.ProfileWorkshopAdapter;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.workshop.pojo.WorkshopObject;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.workshop.viewModel.WorkshopViewModel;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.workshopEdit.ProfileWorkshopEdit;
 
 import java.util.List;
 
@@ -76,12 +77,13 @@ public class ProfileWorkshop extends Fragment implements ProfileWorkshopAdapter.
     }
 
     @Override
-    public void onEditClickButton() {
-        Log.d(TAG, "onEditClickButton: edit button clicked");
+    public void onEditClickButton(WorkshopObject workshop) {
+        getParentFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment,
+                new ProfileWorkshopEdit(workshop,token)).commit();
     }
 
     @Override
-    public void onDeleteClickButton() {
+    public void onDeleteClickButton(WorkshopObject workshop) {
         Log.d(TAG, "onDeleteClickButton: delete button clicked");
     }
 }
