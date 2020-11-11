@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingDefaultResource">
+    tools:context=".ui.addAchivement.award.AddAward">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/signup_header"
-            android:text="Update Award"
+            android:text="Add Award"
             android:textColor="#000000"
             android:textSize="28dp"
             android:textAlignment="center"
@@ -25,7 +25,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/teacher_profile_award_edit_title"
+            android:id="@+id/teacher_profile_award_add_title"
             android:hint="Award Title"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
@@ -35,7 +35,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/teacher_profile_award_edit_date"
+            android:id="@+id/teacher_profile_award_add_date"
             android:hint="Date Awarded"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
@@ -46,7 +46,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:id="@+id/teacher_profile_award_edit_detail"
+            android:id="@+id/teacher_profile_award_add_detail"
             android:hint="Detail of Award"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/award_certificateDetail"
+                android:id="@+id/award_add_certificateDetail"
                 android:text="No file attached"
                 android:textSize="16sp"/>
             <Button
@@ -81,14 +81,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="update"
-                android:id="@+id/teacher_profile_award_update"
+                android:id="@+id/teacher_profile_award_add"
                 android:layout_alignParentEnd="true"
                 />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="cancle"
-                android:id="@+id/teacher_profile_award_cancle"
+                android:id="@+id/teacher_profile_award_add_cancle"
                 android:backgroundTint="#d9534f"/>
         </RelativeLayout>
     </LinearLayout>

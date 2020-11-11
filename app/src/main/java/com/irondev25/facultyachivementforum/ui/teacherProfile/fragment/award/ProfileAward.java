@@ -1,5 +1,6 @@
 package com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.award;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,12 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,21 +21,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.irondev25.facultyachivementforum.R;
-import com.irondev25.facultyachivementforum.ui.publicTeacherAchivements.fragments.AwardPublic;
-import com.irondev25.facultyachivementforum.ui.publicTeacherAchivements.fragments.WorkshopPublic;
+import com.irondev25.facultyachivementforum.ui.addAchivement.award.AddAward;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.award.adapter.ProfileAwardAdapter;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.award.pojo.AwardObject;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.award.viewModel.AwardDeleteViewModel;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.award.viewModel.AwardViewModel;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.awardEdit.ProfileAwardEdit;
-import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.workshop.ProfileWorkshop;
-import com.irondev25.facultyachivementforum.ui.teacherProfile.pojo.BasicProfileObject;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
+
 public class ProfileAward extends Fragment implements ProfileAwardAdapter.MyCardButtons {
     private static final String TAG = "ProfileAward";
+    public static final int ADD_AWARD = 123;
     private static String FRAMETAG;
     private AwardViewModel viewModel;
+    private AwardDeleteViewModel deleteViewModel;
     private ProfileAwardAdapter adapter;
     private List<AwardObject> awards;
 
@@ -53,7 +56,9 @@ public class ProfileAward extends Fragment implements ProfileAwardAdapter.MyCard
         adapter = new ProfileAwardAdapter(this);
 
         viewModel = ViewModelProviders.of(this).get(AwardViewModel.class);
+        deleteViewModel = ViewModelProviders.of(this).get(AwardDeleteViewModel.class);
         viewModel.init();
+        deleteViewModel.init();
         viewModel.getProfileAwards(token);
 
         viewModel.getProfileAwardsLiveData().observe(this, new Observer<List<AwardObject>>() {
@@ -61,6 +66,14 @@ public class ProfileAward extends Fragment implements ProfileAwardAdapter.MyCard
             public void onChanged(List<AwardObject> awardObjects) {
                 awards = awardObjects;
                 adapter.setResult(awardObjects);
+            }
+        });
+
+        deleteViewModel.getLiveData().observe(this, new Observer<ResponseBody>() {
+            @Override
+            public void onChanged(ResponseBody responseBody) {
+                Toast.makeText(getContext(), "Award Deleted", Toast.LENGTH_SHORT).show();
+                viewModel.getProfileAwards(token);
             }
         });
     }
@@ -76,7 +89,9 @@ public class ProfileAward extends Fragment implements ProfileAwardAdapter.MyCard
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: fab clicked");
+                Intent intent = new Intent(getActivity(),AddAward.class);
+                intent.putExtra("token",token);
+                startActivityForResult(intent,ADD_AWARD);
             }
         });
         return view;
@@ -97,6 +112,22 @@ public class ProfileAward extends Fragment implements ProfileAwardAdapter.MyCard
     @Override
     public void onDeleteClickButton(AwardObject awardObject) {
         Log.d(TAG, "onDeleteClickButton: delete button clicked");
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        alertDialog.setPositiveButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d(TAG, "onClick: No clicked");
+            }
+        });
+        alertDialog.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteViewModel.deleteProfileAward(token,awardObject.getUrl());
+            }
+        });
+        alertDialog.setTitle("Delete Workshop");
+        alertDialog.setMessage("Are you sure?");
+        alertDialog.create().show();
     }
 
 //    private void replaceFragment(Fragment fragment,AwardObject award){
@@ -112,4 +143,11 @@ public class ProfileAward extends Fragment implements ProfileAwardAdapter.MyCard
 //            ft.commit();
 //        }
 //    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        viewModel.getProfileAwards(token);
+    }
 }

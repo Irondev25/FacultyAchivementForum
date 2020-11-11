@@ -1,6 +1,7 @@
 package com.irondev25.facultyachivementforum.ui.teacherProfile;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -166,6 +167,15 @@ public class TeacherProfile extends AppCompatActivity implements NavigationView.
                 Glide.with(getApplicationContext()).load(basicProfileObject.getProfilePic()).into(imageView);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == ProfileAward.ADD_AWARD) {
+            Log.d(TAG, "onNavigationItemSelected: nav_award_menu");
+            getSupportFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment, new ProfileAward(token)).commit();
+        }
     }
 
     @Override

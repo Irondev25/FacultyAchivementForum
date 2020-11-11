@@ -12,9 +12,12 @@ import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.workshop.
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
+
 public class WorkshopViewModel extends AndroidViewModel {
     private WorkshopRepository repository;
     private LiveData<List<WorkshopObject>> workshopLiveData;
+//    private LiveData<ResponseBody> workshopDeleteLiveData;
 
     public WorkshopViewModel(@NonNull Application application) {
         super(application);
@@ -28,6 +31,7 @@ public class WorkshopViewModel extends AndroidViewModel {
     public void getProfileWorkshop(String token) {
         repository.getProfileWorkshop(token);
     }
+
 
     public LiveData<List<WorkshopObject>> getProfileWorkshopLiveData() {
         return workshopLiveData;

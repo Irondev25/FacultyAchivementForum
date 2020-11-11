@@ -14,6 +14,7 @@ import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.workshop.
 import java.util.List;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,11 +25,14 @@ public class WorkshopRepository {
     private String API_URL = GlobalVars.API_URL;
     private ApiInterface apiInterface;
     private MutableLiveData<List<WorkshopObject>> workshopGetLiveObject;
+//    private MutableLiveData<ResponseBody> workshopDeleteLiveObject;
 
     private static final String TAG = "WorkshopRepository";
 
     public WorkshopRepository() {
         workshopGetLiveObject = new MutableLiveData<>();
+//        workshopDeleteLiveObject = new MutableLiveData<>();
+
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.level(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();

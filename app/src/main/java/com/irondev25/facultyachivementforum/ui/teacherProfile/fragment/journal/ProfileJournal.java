@@ -1,5 +1,6 @@
 package com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.journal;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,9 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -18,16 +21,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.irondev25.facultyachivementforum.R;
+import com.irondev25.facultyachivementforum.ui.addAchivement.journal.AddJournal;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.journal.adapter.ProfileJournalAdapter;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.journal.pojo.JournalObject;
+import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.journal.viewModel.JournalDeleteViewModel;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.journal.viewModel.JournalViewModel;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.journalEdit.ProfileJournalEdit;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
+
 public class ProfileJournal extends Fragment implements ProfileJournalAdapter.MyCardButtons {
     private static final String TAG = "ProfileJournal";
+    private static final int ADD_JOURNAL = 125;
     private JournalViewModel viewModel;
+    private JournalDeleteViewModel deleteViewModel;
     private ProfileJournalAdapter adapter;
     private List<JournalObject> journals;
 
@@ -42,13 +51,23 @@ public class ProfileJournal extends Fragment implements ProfileJournalAdapter.My
         super.onCreate(savedInstanceState);
         adapter = new ProfileJournalAdapter(this);
         viewModel = ViewModelProviders.of(this).get(JournalViewModel.class);
+        deleteViewModel = ViewModelProviders.of(this).get(JournalDeleteViewModel.class);
         viewModel.init();
+        deleteViewModel.init();
         viewModel.getProfileJournal(token);
         viewModel.getProfileJournalLiveData().observe(this, new Observer<List<JournalObject>>() {
             @Override
             public void onChanged(List<JournalObject> journalObjects) {
                 journals = journalObjects;
                 adapter.setResult(journalObjects);
+            }
+        });
+
+        deleteViewModel.getLiveData().observe(this, new Observer<ResponseBody>() {
+            @Override
+            public void onChanged(ResponseBody responseBody) {
+                Toast.makeText(getContext(), "Journal deleted", Toast.LENGTH_SHORT).show();
+                viewModel.getProfileJournal(token);
             }
         });
     }
@@ -64,7 +83,9 @@ public class ProfileJournal extends Fragment implements ProfileJournalAdapter.My
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: fab clicked");
+                Intent intent = new Intent(getActivity(), AddJournal.class);
+                intent.putExtra("token",token);
+                startActivityForResult(intent,ADD_JOURNAL);
             }
         });
         return view;
@@ -85,5 +106,29 @@ public class ProfileJournal extends Fragment implements ProfileJournalAdapter.My
     @Override
     public void onDeleteClickButton(JournalObject journal) {
         Log.d(TAG, "onDeleteClickButton: delete button clicked");
+        androidx.appcompat.app.AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        alertDialog.setPositiveButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d(TAG, "onClick: No clicked");
+            }
+        });
+        alertDialog.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteViewModel.deleteProfileJournal(token,journal.getUrl());
+            }
+        });
+        alertDialog.setTitle("Delete Workshop");
+        alertDialog.setMessage("Are you sure?");
+        alertDialog.create().show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == ADD_JOURNAL) {
+            viewModel.getProfileJournal(token);
+        }
     }
 }

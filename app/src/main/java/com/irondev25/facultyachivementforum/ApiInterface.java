@@ -20,6 +20,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -107,7 +108,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST("/api/achivements/award/create")
-    Call<AwardObject> createProfileAward(@Header("Authorization") String token, @Url String url,
+    Call<AwardObject> createProfileAward(@Header("Authorization") String token,
                                          @Part("award_title")RequestBody awardTitle,
                                          @Part("award_date") RequestBody awardDate,
                                          @Part("award_details")RequestBody awardDetail,
@@ -124,7 +125,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST("/api/achivements/conference/create")
-    Call<ConferenceObject> createProfileConference(@Header("Authorization") String token, @Url String url,
+    Call<ConferenceObject> createProfileConference(@Header("Authorization") String token,
                                                    @Part("name") RequestBody conferenceName,
                                                    @Part("title") RequestBody paperTitle,
                                                    @Part("date") RequestBody conferenceDate,
@@ -143,7 +144,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST("/api/achivements/journal/create")
-    Call<JournalObject> createProfileJournal(@Header("Authorization") String token, @Url String url,
+    Call<JournalObject> createProfileJournal(@Header("Authorization") String token,
                                              @Part("journal_title") RequestBody journalTitle,
                                              @Part("paper_title") RequestBody paperTitle,
                                              @Part("date") RequestBody journalDate,
@@ -162,12 +163,25 @@ public interface ApiInterface {
 
     @Multipart
     @POST("/api/achivements/workshop/create")
-    Call<WorkshopObject> createProfileWorkshop(@Header("Authorization") String token, @Url String url,
+    Call<WorkshopObject> createProfileWorkshop(@Header("Authorization") String token,
                                                @Part("topic") RequestBody workshopTopic,
                                                @Part("date") RequestBody workshopDate,
                                                @Part("workshop_type") RequestBody workshopType,
                                                @Part("location") RequestBody workshopLocation,
                                                @Part MultipartBody.Part certificate);
+
+
+    @DELETE
+    Call<ResponseBody> deleteProfileAward(@Header("Authorization") String token, @Url String url);
+
+    @DELETE
+    Call<ResponseBody> deleteProfileConference(@Header("Authorization") String token, @Url String url);
+
+    @DELETE
+    Call<ResponseBody> deleteProfileJournal(@Header("Authorization") String token, @Url String url);
+
+    @DELETE
+    Call<ResponseBody> deleteProfileWorkshop(@Header("Authorization") String token, @Url String url);
 }
 
 

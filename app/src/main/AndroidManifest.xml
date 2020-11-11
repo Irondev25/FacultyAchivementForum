@@ -3,25 +3,33 @@
     package="com.irondev25.facultyachivementforum">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission
-        android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FacultyAchivementForum"
-        android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true">
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ui.addAchivement.workshop.AddWorkshop"></activity>
+        <activity android:name=".ui.addAchivement.journal.AddJournal" />
+        <activity android:name=".ui.addAchivement.conference.AddConference" />
+        <activity
+            android:name=".ui.addAchivement.award.AddAward"
+            android:theme="@style/Theme.LoggedUser">
+
+            <!-- <meta-data -->
+            <!-- android:name="android.support.PARENT_ACTIVITY" -->
+            <!-- android:value="com.irondev25.facultyachivementforum.ui.teacherProfile.TeacherProfile" /> -->
+        </activity>
         <activity
             android:name=".ui.teacherProfile.TeacherProfile"
-            android:theme="@style/Theme.LoggedUser"></activity>
+            android:theme="@style/Theme.LoggedUser" />
         <activity android:name=".ui.publicTeacherAchivements.TeacherAchivements" />
         <activity android:name=".ui.browseAchivement.AchivementExplorer" />
         <activity android:name=".ui.signup.SignupActivity" />
