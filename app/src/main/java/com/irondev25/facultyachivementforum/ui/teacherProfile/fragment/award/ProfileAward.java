@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,8 @@ public class ProfileAward extends Fragment implements ProfileAwardAdapter.MyCard
     private ProfileAwardAdapter adapter;
     private List<AwardObject> awards;
 
+    ProgressBar progressBar;
+
     String token;
 
     public ProfileAward(String token){
@@ -66,6 +69,7 @@ public class ProfileAward extends Fragment implements ProfileAwardAdapter.MyCard
             public void onChanged(List<AwardObject> awardObjects) {
                 awards = awardObjects;
                 adapter.setResult(awardObjects);
+                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -82,6 +86,8 @@ public class ProfileAward extends Fragment implements ProfileAwardAdapter.MyCard
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.teacher_profile_awards,container,false);
+        progressBar = view.findViewById(R.id.profile_award_progressbar);
+        progressBar.setVisibility(View.VISIBLE);
         RecyclerView recyclerView = view.findViewById(R.id.tp_recycleview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
