@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
@@ -28,11 +29,8 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
 import com.irondev25.facultyachivementforum.R;
 import com.irondev25.facultyachivementforum.ui.addAchivement.award.viewModel.AddAwardViewModel;
-import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.award.ProfileAward;
 import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.award.pojo.AwardObject;
-import com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.awardEdit.ProfileAwardEdit;
 import com.irondev25.facultyachivementforum.util.DatePickerForActivity;
-import com.irondev25.facultyachivementforum.util.DatePickerFragment;
 import com.irondev25.facultyachivementforum.util.RealPathUtil;
 
 import java.io.File;
@@ -46,6 +44,9 @@ public class AddAward extends AppCompatActivity implements DatePickerDialog.OnDa
     private static final String TAG = "AddAward";
     private static final int REQUEST_CODE_DATE = 15;
     private static final int REQUEST_CODE_FILE = 16;
+    public static final int ADD_AWARD = 123;
+
+    ProgressDialog progressBar;
 
     private AddAwardViewModel viewModel;
 
@@ -65,7 +66,6 @@ public class AddAward extends AppCompatActivity implements DatePickerDialog.OnDa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_award);
-
         initView();
 
         token = getIntent().getStringExtra("token");
@@ -77,7 +77,10 @@ public class AddAward extends AppCompatActivity implements DatePickerDialog.OnDa
             public void onChanged(AwardObject awardObject) {
                 if(awardObject != null) {
                     Toast.makeText(getApplicationContext(), "Award Added", Toast.LENGTH_SHORT).show();
-                    onBackPressed();
+                    progressBar.dismiss();
+                    Intent intent = new Intent();
+                    setResult(ADD_AWARD);
+                    finish();
                 }
                 else if(awardObject.getError()!=null){
                     Toast.makeText(getApplicationContext(), awardObject.getError().getMessage(), Toast.LENGTH_SHORT).show();
@@ -85,6 +88,7 @@ public class AddAward extends AppCompatActivity implements DatePickerDialog.OnDa
                 else{
                     Toast.makeText(getApplicationContext(),"AddAward: Some Error Occured",Toast.LENGTH_SHORT).show();
                 }
+                progressBar.dismiss();
             }
         });
 
@@ -114,6 +118,7 @@ public class AddAward extends AppCompatActivity implements DatePickerDialog.OnDa
     }
 
     public void initView() {
+        setProgressBar();
         awardTitleTextInputLayout = findViewById(R.id.teacher_profile_award_add_title);
         awardDateTextInputLayout = findViewById(R.id.teacher_profile_award_add_date);
         final FragmentManager fm = getSupportFragmentManager();
@@ -154,6 +159,7 @@ public class AddAward extends AppCompatActivity implements DatePickerDialog.OnDa
                 awardDate = awardDateTextInputLayout.getEditText().getText().toString();
                 awardDetail = awardDetailTextInputLayout.getEditText().getText().toString();
                 viewModel.createProfileAward(token,awardTitle,awardDate,awardDetail,certificate);
+                progressBar.show();
             }
         });
         cancleButton = findViewById(R.id.teacher_profile_award_add_cancle);
@@ -198,5 +204,12 @@ public class AddAward extends AppCompatActivity implements DatePickerDialog.OnDa
                     break;
             }
         }
+    }
+
+    public void setProgressBar() {
+        progressBar = new ProgressDialog(this);
+        progressBar.setMessage("Please Wait...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setCancelable(false);
     }
 }

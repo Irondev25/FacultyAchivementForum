@@ -1,6 +1,7 @@
 package com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.confernceEdit;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -46,6 +47,9 @@ public class ProfileConferenceEdit extends Fragment {
     private static final String TAG = "ProfileConferenceEdit";
     private static final int REQUEST_CODE_DATE = 15;
     private static final int REQUEST_CODE_FILE = 16;
+
+    ProgressDialog progressBar;
+
     private ProfileUpdate.OnFragmentInteractionListener mListener;
     String token;
 
@@ -83,6 +87,7 @@ public class ProfileConferenceEdit extends Fragment {
             public void onChanged(ConferenceObject conferenceObject) {
                 if(conferenceObject != null) {
                     Toast.makeText(getContext(), "Confernce Updated", Toast.LENGTH_SHORT).show();
+                    progressBar.dismiss();
                     getParentFragmentManager().beginTransaction()
                             .replace(R.id.teacher_profile_fragment, new ProfileConference(token)).commit();
                 }
@@ -92,6 +97,9 @@ public class ProfileConferenceEdit extends Fragment {
                 else{
                     Toast.makeText(getContext(),"ProfileConferenceEdit: Some Error Occured",Toast.LENGTH_SHORT).show();
                 }
+                if(progressBar.isShowing()) {
+                    progressBar.dismiss();
+                }
             }
         });
     }
@@ -100,6 +108,8 @@ public class ProfileConferenceEdit extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.teacher_profile_conference_edit,container,false);
+        setProgressBar(view);
+
         conferenceTitleTextInputLayout = view.findViewById(R.id.teacher_profile_conference_edit_title);
         paperTitleTextInputLayout = view.findViewById(R.id.teacher_profile_conference_edit_paper);
         conferenceDateTextInputLayout = view.findViewById(R.id.teacher_profile_conference_edit_date);
@@ -163,6 +173,7 @@ public class ProfileConferenceEdit extends Fragment {
                         token,conference.getUrl(),
                         conferenceTitle,paperTitle,
                         conferenceDate,file,conferenceType);
+                progressBar.show();
             }
         });
         cancleButton = view.findViewById(R.id.teacher_profile_conference_cancle);
@@ -222,5 +233,12 @@ public class ProfileConferenceEdit extends Fragment {
         else{
             throw new RuntimeException(context.toString() + "must implement OnFragmentInteractionListener");
         }
+    }
+
+    public void setProgressBar(View view) {
+        progressBar = new ProgressDialog(view.getContext());
+        progressBar.setMessage("Please Wait...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setCancelable(false);
     }
 }

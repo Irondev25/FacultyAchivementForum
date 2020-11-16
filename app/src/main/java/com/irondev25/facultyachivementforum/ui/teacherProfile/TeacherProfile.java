@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -42,6 +43,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TeacherProfile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ProfileUpdate.OnFragmentInteractionListener{
     private BasicProfileViewModel viewModel;
 
+    private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -64,19 +66,25 @@ public class TeacherProfile extends AppCompatActivity implements NavigationView.
         setPreferenceVariable();
         fetchData();
 
-        NavigationView navigationView = findViewById(R.id.teacher_profile_navigation);
+        toolbar = findViewById(R.id.profile_toolbar);
+//        toolbar.setNavigationIcon(R.drawable.ic_hamberger_menu);
+        setSupportActionBar(toolbar);
+
+        navigationView = findViewById(R.id.teacher_profile_navigation);
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
         navUsername = headerView.findViewById(R.id.nav_header_username);
         imageView = headerView.findViewById(R.id.nav_header_profile_pic);
         navUsername.setText(username);
         drawerLayout = findViewById(R.id.profile_activity);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+//        toolbar.setNavigationIcon(R.drawable.hamber_menu);
+        actionBarDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_hamberger_menu);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if(savedInstanceState == null){
+            getSupportActionBar().setTitle("My Profile");
             getSupportFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment, new HomeFragment(username)).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
@@ -105,10 +113,13 @@ public class TeacherProfile extends AppCompatActivity implements NavigationView.
         switch (item.getItemId()){
             case R.id.nav_profile:
                 Log.d(TAG, "onNavigationItemSelected: nav_profile");
+                navigationView.setCheckedItem(R.id.nav_profile);
+                getSupportActionBar().setTitle("Edit Profile");
                 getSupportFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment, new ProfileUpdate(token)).commit();
                 break;
             case R.id.nav_home:
-                Log.d(TAG, "onNavigationItemSelected: nav_profile");
+                navigationView.setCheckedItem(R.id.nav_home);
+                getSupportActionBar().setTitle("My Profile");
                 getSupportFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment, new HomeFragment(username)).commit();
                 break;
             case R.id.nav_logout:
@@ -116,21 +127,25 @@ public class TeacherProfile extends AppCompatActivity implements NavigationView.
                 startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                 break;
             case R.id.nav_awards_menu:
-                Log.d(TAG, "onNavigationItemSelected: nav_award_menu");
+                navigationView.setCheckedItem(R.id.nav_awards_menu);
+                getSupportActionBar().setTitle("My Awards");
                 getSupportFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment, new ProfileAward(token)).commit();
                 break;
             case R.id.nav_conference_menu:
-                Log.d(TAG, "onNavigationItemSelected: nav_conference_menu");
+                navigationView.setCheckedItem(R.id.nav_conference_menu);
+                getSupportActionBar().setTitle("My Conferences");
                 getSupportFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment,
                         new ProfileConference(token)).commit();
                 break;
             case R.id.nav_journal_menu:
-                Log.d(TAG, "onNavigationItemSelected: nav_journal_menu");
+                navigationView.setCheckedItem(R.id.nav_journal_menu);
+                getSupportActionBar().setTitle("My Journals");
                 getSupportFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment,
                         new ProfileJournal(token)).commit();
                 break;
             case R.id.nav_workshop_menu:
-                Log.d(TAG, "onNavigationItemSelected: nav_workshop_menu");
+                navigationView.setCheckedItem(R.id.nav_workshop_menu);
+                getSupportActionBar().setTitle("My Workshop");
                 getSupportFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment,
                         new ProfileWorkshop(token)).commit();
         }

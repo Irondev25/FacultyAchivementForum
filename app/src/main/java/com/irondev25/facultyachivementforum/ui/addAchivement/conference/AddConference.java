@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
@@ -52,6 +53,8 @@ public class AddConference extends AppCompatActivity implements DatePickerDialog
 
     private AddConferenceViewModel viewModel;
 
+    ProgressDialog progressBar;
+
     String token;
     String conferenceTitle,paperTitle,conferenceDate, conferenceType=null;
     MultipartBody.Part certificate = null;
@@ -80,6 +83,7 @@ public class AddConference extends AppCompatActivity implements DatePickerDialog
             public void onChanged(ConferenceObject conferenceObject) {
                 if(conferenceObject != null) {
                     Toast.makeText(getApplicationContext(), "Conference Added", Toast.LENGTH_SHORT).show();
+                    progressBar.dismiss();
                     Intent intent = new Intent();
                     setResult(ADD_CONFERENCE);
                     finish();
@@ -90,6 +94,7 @@ public class AddConference extends AppCompatActivity implements DatePickerDialog
                 else{
                     Toast.makeText(getApplicationContext(),"AddConference: Some Error Occured",Toast.LENGTH_SHORT).show();
                 }
+                progressBar.dismiss();
             }
         });
 
@@ -118,6 +123,7 @@ public class AddConference extends AppCompatActivity implements DatePickerDialog
     }
 
     public void initView() {
+        setProgressBar();
         conferenceTitleTextInputLayout = findViewById(R.id.teacher_profile_conference_add_title);
         paperTitleTextInputLayout = findViewById(R.id.teacher_profile_conference_add_paper);
         conferenceDateTextInputLayout = findViewById(R.id.teacher_profile_conference_add_date);
@@ -175,6 +181,7 @@ public class AddConference extends AppCompatActivity implements DatePickerDialog
                 conferenceDate = conferenceDateTextInputLayout.getEditText().getText().toString();
                 conferenceType = GlobalVars.revPaperTypes.get(conferenceTypeAutoCompleteTextView.getText().toString());
                 viewModel.createProfileConference(token,conferenceTitle,paperTitle,conferenceDate,conferenceType,certificate);
+                progressBar.show();
             }
         });
         cancleButton = findViewById(R.id.teacher_profile_conference_add_cancle);
@@ -214,5 +221,12 @@ public class AddConference extends AppCompatActivity implements DatePickerDialog
                     break;
             }
         }
+    }
+
+    public void setProgressBar() {
+        progressBar = new ProgressDialog(this);
+        progressBar.setMessage("Please Wait...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setCancelable(false);
     }
 }

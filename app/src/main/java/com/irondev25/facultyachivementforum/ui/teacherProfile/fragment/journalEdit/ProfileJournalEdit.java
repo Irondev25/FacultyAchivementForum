@@ -1,6 +1,7 @@
 package com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.journalEdit;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -44,6 +45,9 @@ public class ProfileJournalEdit extends Fragment {
     private static final String TAG = "ProfileJournalEdit";
     private static final int REQUEST_CODE_DATE = 15;
     private static final int REQUEST_CODE_FILE = 16;
+
+    ProgressDialog progressBar;
+
     private ProfileUpdate.OnFragmentInteractionListener mListener;
     String token;
 
@@ -80,10 +84,14 @@ public class ProfileJournalEdit extends Fragment {
                 if(journalObject != null) {
                     if(journalObject.getError() == null) {
                         Toast.makeText(getContext(), "Journal Updated", Toast.LENGTH_SHORT).show();
+                        progressBar.dismiss();
                         getParentFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment,new ProfileJournal(token)).commit();
                     }
                     else{
                         Toast.makeText(getContext(), journalObject.getError().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    if(progressBar.isShowing()) {
+                        progressBar.dismiss();
                     }
                 }
             }
@@ -94,6 +102,8 @@ public class ProfileJournalEdit extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.teacher_profile_journal_edit,container,false);
+        setProgressBar(view);
+
         journalNameTextInputLayout = view.findViewById(R.id.teacher_profile_journal_edit_title);
         paperTitleTextInputLayout = view.findViewById(R.id.teacher_profile_journal_edit_paper);
         journalDateTextInputLayout = view.findViewById(R.id.teacher_profile_journal_edit_date);
@@ -154,6 +164,7 @@ public class ProfileJournalEdit extends Fragment {
                 viewModel.updateProfileJournal(token,journal.getUrl(),
                         journalTitle,paperTitle,journalDate,journalType,
                         journalImpactFactor,file);
+                progressBar.show();
             }
         });
         cancleButton = view.findViewById(R.id.teacher_profile_journal_cancle);
@@ -213,5 +224,12 @@ public class ProfileJournalEdit extends Fragment {
         else{
             throw new RuntimeException(context.toString() + "must implement OnFragmentInteractionListener");
         }
+    }
+
+    public void setProgressBar(View view) {
+        progressBar = new ProgressDialog(view.getContext());
+        progressBar.setMessage("Please Wait...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setCancelable(false);
     }
 }

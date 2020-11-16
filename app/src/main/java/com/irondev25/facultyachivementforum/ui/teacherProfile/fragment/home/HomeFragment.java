@@ -1,5 +1,6 @@
 package com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.home;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ public class HomeFragment extends Fragment implements Observer<BasicProfileObjec
     String username;
 
     //view elements
+    ProgressDialog progressBar;
     CircleImageView circleImageView;
     TextView usernameTextView;
     TextView emailTextView;
@@ -58,7 +60,6 @@ public class HomeFragment extends Fragment implements Observer<BasicProfileObjec
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         viewModel = ViewModelProviders.of(this).get(BasicProfileViewModel.class);
         viewModel.init();
         viewModel.getBasicProfile(username);
@@ -69,6 +70,8 @@ public class HomeFragment extends Fragment implements Observer<BasicProfileObjec
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.teacher_profile_home_frag,container,false);
+        setProgressBar(view);
+        progressBar.show();
         initView(view);
         return view;
     }
@@ -141,5 +144,13 @@ public class HomeFragment extends Fragment implements Observer<BasicProfileObjec
             }
             numWorkshopTextView.setText(Integer.toString(num));
         }
+        progressBar.dismiss();
+    }
+
+    public void setProgressBar(View view) {
+        progressBar = new ProgressDialog(view.getContext());
+        progressBar.setMessage("Please Wait...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setCancelable(false);
     }
 }

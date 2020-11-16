@@ -1,6 +1,7 @@
 package com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.profileUpdate;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -57,6 +58,8 @@ public class ProfileUpdate extends Fragment {
     private ProfileGetViewModel viewModel;
     private ProfileUpdateViewModel updateViewModel;
 
+
+    ProgressDialog progressDialog;
     CircleImageView profilePic;
     FloatingActionButton addPic;
     TextInputLayout firstNameTextInputLayout;
@@ -130,6 +133,7 @@ public class ProfileUpdate extends Fragment {
                 else{
                     Toast.makeText(getContext(), "Unknown Error", Toast.LENGTH_SHORT).show();
                 }
+                progressDialog.dismiss();
             }
         });
 
@@ -150,6 +154,7 @@ public class ProfileUpdate extends Fragment {
                 else{
                     Toast.makeText(getContext(), "Error At ProfileUpdate", Toast.LENGTH_SHORT).show();
                 }
+                progressDialog.dismiss();
             }
         });
     }
@@ -158,7 +163,8 @@ public class ProfileUpdate extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.teacher_profile_ru_frag,container,false);
-
+        setProgressBar(view);
+        progressDialog.show();
         profilePic = view.findViewById(R.id.profile_profile_image);
         addPic = view.findViewById(R.id.profile_pick_image);
         setupAddPicButton();
@@ -242,6 +248,7 @@ public class ProfileUpdate extends Fragment {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.show();
                 firstName = firstNameTextInputLayout.getEditText().getText().toString();
                 middleName = middleNameTextInputLayout.getEditText().getText().toString();
                 lastName = lastNameTextInputLayout.getEditText().getText().toString();
@@ -337,5 +344,12 @@ public class ProfileUpdate extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void setProgressBar(View view) {
+        progressDialog = new ProgressDialog(view.getContext());
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
     }
 }

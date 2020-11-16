@@ -2,6 +2,7 @@ package com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.awardEdi
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -54,6 +55,9 @@ public class ProfileAwardEdit extends Fragment {
     private static final String TAG = "ProfileAwardEdit";
     private static final int REQUEST_CODE_DATE = 15;
     private static final int REQUEST_CODE_FILE = 16;
+
+    ProgressDialog progressBar;
+
     private ProfileUpdate.OnFragmentInteractionListener mListener;
     String token;
 
@@ -90,6 +94,7 @@ public class ProfileAwardEdit extends Fragment {
             public void onChanged(AwardObject awardObject) {
                 if(awardObject != null) {
                     Toast.makeText(getContext(), "Award Updated", Toast.LENGTH_SHORT).show();
+                    progressBar.dismiss();
                     getParentFragmentManager().beginTransaction()
                             .replace(R.id.teacher_profile_fragment,new ProfileAward(token)).commit();
                 }
@@ -99,6 +104,9 @@ public class ProfileAwardEdit extends Fragment {
                 else{
                     Toast.makeText(getContext(),"ProfileAwardEdit: Some Error Occured",Toast.LENGTH_SHORT).show();
                 }
+                if(progressBar.isShowing()) {
+                    progressBar.dismiss();
+                }
             }
         });
     }
@@ -107,6 +115,8 @@ public class ProfileAwardEdit extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.teacher_profile_award_edit,container,false);
+        setProgressBar(view);
+
         awardTitleTextView = view.findViewById(R.id.teacher_profile_award_edit_title);
 
         awardDateTextView = view.findViewById(R.id.teacher_profile_award_edit_date);
@@ -155,6 +165,7 @@ public class ProfileAwardEdit extends Fragment {
                         awardTitle,awardDate,awardDetail,
                         file
                 );
+                progressBar.show();
             }
         });
         cancleButton = view.findViewById(R.id.teacher_profile_award_cancle);
@@ -219,5 +230,12 @@ public class ProfileAwardEdit extends Fragment {
         else{
             throw new RuntimeException(context.toString() + "must implement OnFragmentInteractionListener");
         }
+    }
+
+    public void setProgressBar(View view) {
+        progressBar = new ProgressDialog(view.getContext());
+        progressBar.setMessage("Please Wait...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setCancelable(false);
     }
 }

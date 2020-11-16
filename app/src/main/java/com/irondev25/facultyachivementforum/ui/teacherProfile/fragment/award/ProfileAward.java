@@ -1,5 +1,6 @@
 package com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.award;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.irondev25.facultyachivementforum.R;
@@ -37,12 +39,15 @@ public class ProfileAward extends Fragment implements ProfileAwardAdapter.MyCard
     private static final String TAG = "ProfileAward";
     public static final int ADD_AWARD = 123;
     private static String FRAMETAG;
+
+
+    private SwipeRefreshLayout swipeRefreshLayout;
     private AwardViewModel viewModel;
     private AwardDeleteViewModel deleteViewModel;
     private ProfileAwardAdapter adapter;
     private List<AwardObject> awards;
 
-    ProgressBar progressBar;
+    ProgressDialog progressBar;
 
     String token;
 
@@ -69,7 +74,7 @@ public class ProfileAward extends Fragment implements ProfileAwardAdapter.MyCard
             public void onChanged(List<AwardObject> awardObjects) {
                 awards = awardObjects;
                 adapter.setResult(awardObjects);
-                progressBar.setVisibility(View.GONE);
+                progressBar.dismiss();
             }
         });
 
@@ -86,8 +91,17 @@ public class ProfileAward extends Fragment implements ProfileAwardAdapter.MyCard
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.teacher_profile_awards,container,false);
-        progressBar = view.findViewById(R.id.profile_award_progressbar);
-        progressBar.setVisibility(View.VISIBLE);
+        swipeRefreshLayout = view.findViewById(R.id.award_refresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                viewModel.getProfileAwards(token);
+                progressBar.show();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+        setProgressBar(view);
+        progressBar.show();
         RecyclerView recyclerView = view.findViewById(R.id.tp_recycleview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -129,6 +143,7 @@ public class ProfileAward extends Fragment implements ProfileAwardAdapter.MyCard
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 deleteViewModel.deleteProfileAward(token,awardObject.getUrl());
+                progressBar.show();
             }
         });
         alertDialog.setTitle("Delete Workshop");
@@ -154,6 +169,15 @@ public class ProfileAward extends Fragment implements ProfileAwardAdapter.MyCard
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        viewModel.getProfileAwards(token);
+        if(requestCode == ADD_AWARD) {
+            viewModel.getProfileAwards(token);
+        }
+    }
+
+    public void setProgressBar(View view) {
+        progressBar = new ProgressDialog(view.getContext());
+        progressBar.setMessage("Please Wait...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setCancelable(false);
     }
 }

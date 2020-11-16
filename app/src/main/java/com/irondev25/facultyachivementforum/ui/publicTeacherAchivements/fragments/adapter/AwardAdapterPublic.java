@@ -52,6 +52,7 @@ public class AwardAdapterPublic extends RecyclerView.Adapter<AwardAdapterPublic.
         if(award.getCertificate() == null){
             holder.downloadButton.setVisibility(View.GONE);
         }
+        holder.awardDetail.setText(award.getDetails());
         dowloadUrl = award.getCertificate();
     }
 

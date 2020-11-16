@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
@@ -46,6 +47,9 @@ public class AddWorkshop extends AppCompatActivity implements DatePickerDialog.O
     private static final String TAG = "AddWorkshop";
     private static final int ADD_WORKSHOP = 126;
     private static final int REQUEST_CODE_FILE = 16;
+
+    ProgressDialog progressBar;
+
     private ProfileUpdate.OnFragmentInteractionListener mListener;
 
     private AddWorkshopViewModel viewModel;
@@ -78,6 +82,7 @@ public class AddWorkshop extends AppCompatActivity implements DatePickerDialog.O
             public void onChanged(WorkshopObject workshopObject) {
                 if(workshopObject != null) {
                     Toast.makeText(getApplicationContext(), "Conference Added", Toast.LENGTH_SHORT).show();
+                    progressBar.dismiss();
                     Intent intent = new Intent();
                     setResult(ADD_WORKSHOP);
                     finish();
@@ -88,6 +93,7 @@ public class AddWorkshop extends AppCompatActivity implements DatePickerDialog.O
                 else{
                     Toast.makeText(getApplicationContext(),"AddConference: Some Error Occured",Toast.LENGTH_SHORT).show();
                 }
+                progressBar.dismiss();
             }
         });
 
@@ -105,6 +111,7 @@ public class AddWorkshop extends AppCompatActivity implements DatePickerDialog.O
     }
 
     private void initView() {
+        setProgressBar();
         workshopTitleTextInputLayout = findViewById(R.id.teacher_profile_workshop_add_title);
         workshopLocationTextInputLayout = findViewById(R.id.teacher_profile_workshop_add_location);
         workshopDateTextInputLayout = findViewById(R.id.teacher_profile_workshop_add_date);
@@ -151,6 +158,7 @@ public class AddWorkshop extends AppCompatActivity implements DatePickerDialog.O
                         workshopDate, workshopType,
                         certificate
                 );
+                progressBar.show();
             }
         });
         cancleButton = findViewById(R.id.teacher_profile_workshop_add_cancle);
@@ -202,5 +210,12 @@ public class AddWorkshop extends AppCompatActivity implements DatePickerDialog.O
                     break;
             }
         }
+    }
+
+    public void setProgressBar() {
+        progressBar = new ProgressDialog(this);
+        progressBar.setMessage("Please Wait...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setCancelable(false);
     }
 }

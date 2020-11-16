@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
@@ -47,6 +48,8 @@ public class AddJournal extends AppCompatActivity implements DatePickerDialog.On
     private static final int REQUEST_CODE_FILE = 16;
     public static final int ADD_JOURNAL = 125;
 
+    ProgressDialog progressBar;
+
     private ProfileUpdate.OnFragmentInteractionListener mListener;
 
     private AddJournalViewModel viewModel;
@@ -79,6 +82,7 @@ public class AddJournal extends AppCompatActivity implements DatePickerDialog.On
             public void onChanged(JournalObject journalObject) {
                 if(journalObject != null) {
                     Toast.makeText(getApplicationContext(), "Journal Added", Toast.LENGTH_SHORT).show();
+                    progressBar.dismiss();
                     Intent intent = new Intent();
                     setResult(ADD_JOURNAL);
                     finish();
@@ -89,6 +93,7 @@ public class AddJournal extends AppCompatActivity implements DatePickerDialog.On
                 else{
                     Toast.makeText(getApplicationContext(),"AddConference: Some Error Occured",Toast.LENGTH_SHORT).show();
                 }
+                progressBar.dismiss();
             }
         });
 
@@ -117,6 +122,7 @@ public class AddJournal extends AppCompatActivity implements DatePickerDialog.On
     }
 
     private void initView() {
+        setProgressBar();
         journalNameTextInputLayout = findViewById(R.id.teacher_profile_journal_add_title);
         paperTitleTextInputLayout = findViewById(R.id.teacher_profile_journal_add_paper);
         journalDateTextInputLayout = findViewById(R.id.teacher_profile_journal_add_date);
@@ -162,6 +168,7 @@ public class AddJournal extends AppCompatActivity implements DatePickerDialog.On
                 journalImpactFactor = journalImpactFactorTextInputLayout.getEditText().getText().toString();
                 viewModel.createProfileJournal(token,journalTitle,paperTitle,journalDate,journalType,
                         journalImpactFactor,certificate);
+                progressBar.show();
             }
         });
         cancleButton = findViewById(R.id.teacher_profile_journal_add_cancle);
@@ -202,5 +209,12 @@ public class AddJournal extends AppCompatActivity implements DatePickerDialog.On
                     break;
             }
         }
+    }
+
+    public void setProgressBar() {
+        progressBar = new ProgressDialog(this);
+        progressBar.setMessage("Please Wait...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setCancelable(false);
     }
 }

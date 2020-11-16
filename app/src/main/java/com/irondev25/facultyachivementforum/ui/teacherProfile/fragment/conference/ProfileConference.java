@@ -1,5 +1,6 @@
 package com.irondev25.facultyachivementforum.ui.teacherProfile.fragment.conference;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.irondev25.facultyachivementforum.R;
@@ -34,6 +36,9 @@ import okhttp3.ResponseBody;
 
 public class ProfileConference extends Fragment implements ProfileConferenceAdapter.MyCardButtons{
     private static final String TAG = "ProfileConference";
+
+    ProgressDialog progressBar;
+
     private ConferenceViewModel viewModel;
     private ConferenceDeleteViewModel deleteViewModel;
     private ProfileConferenceAdapter adapter;
@@ -62,6 +67,7 @@ public class ProfileConference extends Fragment implements ProfileConferenceAdap
             @Override
             public void onChanged(List<ConferenceObject> conferenceObjects) {
                 adapter.setResult(conferenceObjects);
+                progressBar.dismiss();
             }
         });
 
@@ -78,6 +84,18 @@ public class ProfileConference extends Fragment implements ProfileConferenceAdap
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.teacher_profile_conference,container,false);
+        setProgressBar(view);
+        progressBar.show();
+
+        SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.conference_referesh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                viewModel.getProfileConferences(token);
+                progressBar.show();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         RecyclerView recyclerView = view.findViewById(R.id.tp_conference_recycleview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -119,6 +137,7 @@ public class ProfileConference extends Fragment implements ProfileConferenceAdap
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 deleteViewModel.deleteProfileConference(token,conference.getUrl());
+                progressBar.show();
             }
         });
         alertDialog.setTitle("Delete Workshop");
@@ -132,5 +151,12 @@ public class ProfileConference extends Fragment implements ProfileConferenceAdap
         if(requestCode == ADD_CONFERENCE) {
             viewModel.getProfileConferences(token);
         }
+    }
+
+    public void setProgressBar(View view) {
+        progressBar = new ProgressDialog(view.getContext());
+        progressBar.setMessage("Please Wait...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setCancelable(false);
     }
 }

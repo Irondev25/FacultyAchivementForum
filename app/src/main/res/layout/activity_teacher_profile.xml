@@ -6,13 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".ui.teacherProfile.TeacherProfile"
     android:id="@+id/profile_activity"
-    android:theme="@style/Theme.LoggedUser">
+    android:theme="@style/Theme.LoggedUser"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-    <FrameLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/teacher_profile_fragment"/>
+        android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            android:id="@+id/profile_toolbar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+            android:elevation="4dp"/>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/teacher_profile_fragment"/>
+    </LinearLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/teacher_profile_navigation"
         android:layout_width="wrap_content"
@@ -23,3 +38,5 @@
         />
 
 </androidx.drawerlayout.widget.DrawerLayout>
+
+<!--    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
