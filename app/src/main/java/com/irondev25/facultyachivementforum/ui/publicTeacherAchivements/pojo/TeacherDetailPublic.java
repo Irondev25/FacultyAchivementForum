@@ -65,6 +65,20 @@ public class TeacherDetailPublic {
         this.lastName = lastName;
     }
 
+    public String getFullName() {
+        String fname = "";
+        if(this.firstName != null) {
+            fname += firstName;
+        }
+        if(this.middleName != null) {
+            fname += " " + middleName;
+        }
+        if(this.lastName != null) {
+            fname += " " + lastName;
+        }
+        return fname;
+    }
+
     public String getEmail() {
         return email;
     }

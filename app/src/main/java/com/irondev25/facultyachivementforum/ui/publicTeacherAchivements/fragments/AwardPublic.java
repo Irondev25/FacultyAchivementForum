@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,7 +39,8 @@ public class AwardPublic extends Fragment implements AwardAdapterPublic.OnDownlo
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.public_award_frag,container,false);
-
+        TextView teacherName = view.findViewById(R.id.pa_teacher_name);
+        teacherName.setText(teacherDetailPublic.getFullName());
         adapter = new AwardAdapterPublic(this);
         adapter.setResult(teacherDetailPublic);
         RecyclerView recyclerView = view.findViewById(R.id.award_public_recycle_view);

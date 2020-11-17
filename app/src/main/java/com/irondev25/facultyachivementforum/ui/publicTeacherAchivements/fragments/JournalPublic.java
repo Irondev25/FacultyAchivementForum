@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +37,8 @@ public class JournalPublic extends Fragment implements JournalAdapterPublic.OnDo
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.public_journal_frag,container,false);
+        TextView teacherName = view.findViewById(R.id.pa_teacher_name);
+        teacherName.setText(teacherDetailPublic.getFullName());
         adapter = new JournalAdapterPublic(this);
         adapter.setResults(teacherDetailPublic);
         RecyclerView recyclerView = view.findViewById(R.id.journal_public_recycle_view);

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +37,8 @@ public class ConferencePublic extends Fragment implements ConferenceAdapterPubli
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.public_conference_frag,container,false);
+        TextView textView = view.findViewById(R.id.pa_teacher_name);
+        textView.setText(teacherDetailPublic.getFullName());
         adapter = new ConferenceAdapterPublic(this);
         adapter.setResult(teacherDetailPublic);
         RecyclerView recyclerView = view.findViewById(R.id.conference_public_recycle_view);
