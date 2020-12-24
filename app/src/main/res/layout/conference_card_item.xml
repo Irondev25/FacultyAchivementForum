@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
+        android:background="@drawable/card_background_grad"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,23 +22,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Conference Name"
+                android:text="Conference Name :"
                 android:layout_marginRight="4dp"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/black"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"/>
+                android:textSize="16sp"/>
+<!--            <View-->
+<!--                android:layout_width="1dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@android:color/black"-->
+<!--                android:layout_marginTop="1dp"-->
+<!--                android:layout_marginBottom="1dp"/>-->
             <TextView
                 android:id="@+id/conference_name_public"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="conference name"
                 android:layout_marginLeft="5dp"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/paper_title_container_public"
@@ -49,23 +50,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Paper Title"
+                android:text="Paper Title :"
                 android:layout_marginRight="4dp"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/black"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"/>
+                android:textSize="16sp"/>
+<!--            <View-->
+<!--                android:layout_width="1dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@android:color/black"-->
+<!--                android:layout_marginTop="1dp"-->
+<!--                android:layout_marginBottom="1dp"/>-->
             <TextView
                 android:id="@+id/conference_paper_title_public"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="paper title"
                 android:layout_marginLeft="5dp"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/conference_date_container_public"
@@ -77,23 +78,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Publish Date"
+                android:text="Publish Date :"
                 android:layout_marginRight="4dp"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/black"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"/>
+                android:textSize="16sp"/>
+<!--            <View-->
+<!--                android:layout_width="1dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@android:color/black"-->
+<!--                android:layout_marginTop="1dp"-->
+<!--                android:layout_marginBottom="1dp"/>-->
             <TextView
                 android:id="@+id/conference_date_public"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10-02-2020"
                 android:layout_marginLeft="5dp"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
         <!--        <View-->
         <!--            android:id="@+id/hz_line"-->
@@ -148,23 +149,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Conference Type"
+                android:text="Conference Type :"
                 android:layout_marginRight="4dp"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/black"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"/>
+                android:textSize="16sp"/>
+<!--            <View-->
+<!--                android:layout_width="1dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@android:color/black"-->
+<!--                android:layout_marginTop="1dp"-->
+<!--                android:layout_marginBottom="1dp"/>-->
             <TextView
                 android:id="@+id/conference_type_public"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="IEEE"
                 android:layout_marginLeft="5dp"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
         <Button
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"

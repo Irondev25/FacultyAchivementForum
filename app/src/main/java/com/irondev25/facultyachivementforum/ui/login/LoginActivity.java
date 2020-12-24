@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,6 +34,7 @@ import com.irondev25.facultyachivementforum.ui.teacherProfile.TeacherProfile;
 public class LoginActivity extends AppCompatActivity implements PreferenceVariables {
     private LoginViewModel viewModel;
     public SharedPreferences sharedPreferences;
+    private ProgressDialog progressDialog;
 
     private String passwordVal;
 
@@ -40,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements PreferenceVariab
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        setProgressBar();
 //        getActionBar().setTitle("Login");
 
 //        checkPermission();
@@ -60,22 +62,29 @@ public class LoginActivity extends AppCompatActivity implements PreferenceVariab
         viewModel.getTokenLiveData().observe(this, new Observer<TokenPojo>() {
             @Override
             public void onChanged(TokenPojo token) {
+                progressDialog.dismiss();
                 if(token.getToken() != null){
                     String currUser = sharedPreferences.getString(USERNAME,ANON);
                     if(currUser.equals(ANON)){
                         saveUser(token);
-                        Toast.makeText(getApplicationContext(), token.getUsername() + " successfully logged in", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),
+                                token.getUsername() + " successfully logged in",
+                                Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), TeacherProfile.class));
                     }
                     else if(currUser.equals(token.getUsername())){
-                        Toast.makeText(getApplicationContext(), currUser + " already logged in", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), currUser + " already logged in",
+                                Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        Toast.makeText(getApplicationContext(), currUser + " already logged in, logout first", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),
+                                currUser + " already logged in, logout first",
+                                Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Login Failed",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -101,10 +110,10 @@ public class LoginActivity extends AppCompatActivity implements PreferenceVariab
                             passwordEditText.setError("Enter Password");
                         }
                     }
-                    else{
-                        performLogin(usernameVal,passwordVal);
+                    else {
+                        performLogin(usernameVal, passwordVal);
+                        progressDialog.show();
                     }
-
                 }
                 else{
                     if(usernameVal == null){
@@ -178,5 +187,12 @@ public class LoginActivity extends AppCompatActivity implements PreferenceVariab
                             Toast.LENGTH_SHORT)
                     .show();
         }
+    }
+
+    public void setProgressBar() {
+        progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
     }
 }

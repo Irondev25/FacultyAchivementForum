@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.irondev25.facultyachivementforum.ui.browseAchivement.adapter.TeacherI
 import com.irondev25.facultyachivementforum.ui.browseAchivement.pojo.TeacherItem;
 import com.irondev25.facultyachivementforum.ui.browseAchivement.viewModel.TeacherListViewModel;
 import com.irondev25.facultyachivementforum.ui.publicTeacherAchivements.TeacherAchivements;
+import com.irondev25.facultyachivementforum.ui.signup.SignupActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +31,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AchivementExplorer extends AppCompatActivity implements TeacherItemAdapater.OnTeacherItemClick {
+    private ProgressDialog progressDialog;
     private TeacherListViewModel viewModel;
     private TeacherItemAdapater adapater;
 
@@ -48,7 +51,7 @@ public class AchivementExplorer extends AppCompatActivity implements TeacherItem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_achivement_explorer);
-
+        setProgressBar();
         deptPairList = GlobalVars.getDeptMap();
         deptList = GlobalVars.getDeptList();
         deptPairList.put("All",0);
@@ -62,6 +65,7 @@ public class AchivementExplorer extends AppCompatActivity implements TeacherItem
         viewModel.getTeacherListResponseLiveData().observe(this, new Observer<List<TeacherItem>>() {
             @Override
             public void onChanged(List<TeacherItem> teacherItems) {
+                progressDialog.dismiss();
                 if(teacherItems!=null){
                     teacherItemList = teacherItems;
                     adapater.setResults(teacherItems);
@@ -139,6 +143,7 @@ public class AchivementExplorer extends AppCompatActivity implements TeacherItem
             fName = firstNameString;
         }
         viewModel.getTeacherList(deptId,fName);
+        progressDialog.show();
     }
 
     @Override
@@ -150,5 +155,12 @@ public class AchivementExplorer extends AppCompatActivity implements TeacherItem
         publicTeacherDetail.putExtra("name", fullName);
         Log.d(TAG, "onTItemClick: " + profileUrl);
         startActivity(publicTeacherDetail);
+    }
+
+    public void setProgressBar() {
+        progressDialog = new ProgressDialog(AchivementExplorer.this);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
     }
 }

@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
+        android:background="@drawable/card_background_grad"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,23 +23,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Award Title"
+                android:text="Award Title :"
                 android:layout_marginRight="4dp"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/black"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"/>
+                android:textSize="16sp"/>
+<!--            <View-->
+<!--                android:layout_width="1dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@android:color/black"-->
+<!--                android:layout_marginTop="1dp"-->
+<!--                android:layout_marginBottom="1dp"/>-->
             <TextView
                 android:id="@+id/teacher_profile_award_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="award_title"
                 android:layout_marginLeft="5dp"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/teacher_profile_award_date_container"
@@ -50,45 +51,47 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date Awarded"
+                android:text="Date Awarded :"
                 android:layout_marginRight="4dp"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/black"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"/>
+                android:textSize="16sp"/>
+<!--            <View-->
+<!--                android:layout_width="1dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@android:color/black"-->
+<!--                android:layout_marginTop="1dp"-->
+<!--                android:layout_marginBottom="1dp"/>-->
             <TextView
                 android:id="@+id/teacher_profile_award_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10-02-2020"
                 android:layout_marginLeft="5dp"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
-        <View
-            android:id="@+id/hz_line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/black"
-            android:layout_below="@+id/teacher_profile_award_date_container"/>
+<!--        <View-->
+<!--            android:id="@+id/hz_line"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="@android:color/black"-->
+<!--            android:layout_below="@+id/teacher_profile_award_date_container"/>-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/teacher_profile_detail_label"
             android:text="Award Detail"
             android:textStyle="bold"
-            android:layout_below="@+id/hz_line"
-            android:textSize="20sp"/>
+            android:layout_below="@+id/teacher_profile_award_date_container"
+            android:textSize="16sp"
+            android:layout_marginLeft="4dp"/>
         <TextView
             android:id="@+id/teacher_profile_award_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/teacher_profile_detail_label"
             android:text="Sample Detail"
-            android:textSize="20sp"/>
+            android:textSize="16sp"
+            android:layout_marginLeft="4dp"/>
         <!--        <com.google.android.material.button.MaterialButton-->
         <!--            android:id="@+id/award_download_certificate_public"-->
         <!--            android:layout_width="wrap_content"-->

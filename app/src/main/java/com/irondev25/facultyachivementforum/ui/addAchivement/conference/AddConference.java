@@ -145,22 +145,22 @@ public class AddConference extends AppCompatActivity implements DatePickerDialog
                 conferenceType = GlobalVars.revPaperTypes.get(GlobalVars.paperList.get(position));
             }
         });
-        conferenceTypeAutoCompleteTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                String currentVal = "";
-                AutoCompleteTextView actv = (AutoCompleteTextView) v;
-                if(hasFocus) {
-                    currentVal = actv.getText().toString();
-                    actv.setText("");
-                }
-                else{
-//                    if(actv.getText().toString().equals("")){
-                    actv.setText(currentVal);
-//                    }
-                }
-            }
-        });
+//        conferenceTypeAutoCompleteTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                String currentVal = "";
+//                AutoCompleteTextView actv = (AutoCompleteTextView) v;
+//                if(hasFocus) {
+//                    currentVal = actv.getText().toString();
+//                    actv.setText("");
+//                }
+//                else{
+////                    if(actv.getText().toString().equals("")){
+//                    actv.setText(currentVal);
+////                    }
+//                }
+//            }
+//        });
         conferenceCertificateDetailTextView = findViewById(R.id.conference_add_certificateDetail);
         attachCertificateButton = findViewById(R.id.teacher_profile_conference_add_attach_certificate);
         attachCertificateButton.setOnClickListener(new View.OnClickListener() {

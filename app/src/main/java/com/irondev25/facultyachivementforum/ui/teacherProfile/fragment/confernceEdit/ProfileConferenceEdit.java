@@ -52,6 +52,7 @@ public class ProfileConferenceEdit extends Fragment {
 
     private ProfileUpdate.OnFragmentInteractionListener mListener;
     String token;
+    String currentVal;
 
     String[] fileTypes = new String[] {"pdf"};
 
@@ -131,21 +132,17 @@ public class ProfileConferenceEdit extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 conferenceType  = GlobalVars.revPaperTypes.get(GlobalVars.paperList.get(position));
+                Log.d(TAG, "onItemClick: " + conferenceType);
             }
         });
         conferenceTypeAutoCompleteTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                String currentVal = "";
+                currentVal = "";
                 AutoCompleteTextView actv = (AutoCompleteTextView) v;
                 if(hasFocus) {
                     currentVal = actv.getText().toString();
                     actv.setText("");
-                }
-                else{
-//                    if(actv.getText().toString().equals("")){
-                        actv.setText(currentVal);
-//                    }
                 }
             }
         });
@@ -167,7 +164,9 @@ public class ProfileConferenceEdit extends Fragment {
                 conferenceTitle = conferenceTitleTextInputLayout.getEditText().getText().toString();
                 paperTitle = paperTitleTextInputLayout.getEditText().getText().toString();
                 conferenceDate = conferenceDateTextInputLayout.getEditText().getText().toString();
-                conferenceType = GlobalVars.revPaperTypes.get(conferenceTypeAutoCompleteTextView.getText().toString());
+                if(conferenceTypeAutoCompleteTextView.getText().toString() != null) {
+                    conferenceType = conferenceType = GlobalVars.revPaperTypes.get(conferenceTypeAutoCompleteTextView.getText().toString());
+                }
                 Log.d(TAG, conferenceTitle+" "+paperTitle+" "+conferenceDate+" "+conferenceType);
                 viewModel.updateProfileConference(
                         token,conference.getUrl(),

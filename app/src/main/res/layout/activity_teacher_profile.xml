@@ -35,6 +35,7 @@
         app:menu="@menu/teacher_profile_menu"
         android:layout_gravity="start"
         app:headerLayout="@layout/navigation_header"
+        android:backgroundTint="#c3fdff"
         />
 
 </androidx.drawerlayout.widget.DrawerLayout>

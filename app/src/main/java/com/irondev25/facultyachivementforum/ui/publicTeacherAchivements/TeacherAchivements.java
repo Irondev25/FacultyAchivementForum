@@ -2,11 +2,11 @@ package com.irondev25.facultyachivementforum.ui.publicTeacherAchivements;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -20,9 +20,11 @@ import com.irondev25.facultyachivementforum.ui.publicTeacherAchivements.fragment
 import com.irondev25.facultyachivementforum.ui.publicTeacherAchivements.fragments.WorkshopPublic;
 import com.irondev25.facultyachivementforum.ui.publicTeacherAchivements.pojo.TeacherDetailPublic;
 import com.irondev25.facultyachivementforum.ui.publicTeacherAchivements.viewModel.TeacherPublicDataViewModel;
+import com.irondev25.facultyachivementforum.ui.signup.SignupActivity;
 
 public class TeacherAchivements extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "TeacherAchivements";
+    private ProgressDialog progressDialog;
 
     private TeacherPublicDataViewModel viewModel;
     public TeacherDetailPublic teacherDetailPublic;
@@ -34,31 +36,33 @@ public class TeacherAchivements extends AppCompatActivity implements BottomNavig
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_achivements);
-
+        setProgressBar();
 
         String fullName = getIntent().getStringExtra("name");
         url = getIntent().getStringExtra("profile_url");
 //        getSupportActionBar().setTitle(fullName);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        String new_url = url.split("8000",2)[1];
+        String new_url;
+        if(url.matches("(.*)8000(.*)")){
+            new_url = url.split("8000",2)[1];
+        }
+        else{
+            new_url = "/" + url.split("/",4)[3];
+        }
 
         bottomNavigationView = findViewById(R.id.public_teacher_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-        ContentLoadingProgressBar progressBar = findViewById(R.id.teacher_public_progress_bar);
-        progressBar.setVisibility(View.VISIBLE);
-
         viewModel = ViewModelProviders.of(this).get(TeacherPublicDataViewModel.class);
         viewModel.init();
         viewModel.getTeacherList(new_url);
-
+        progressDialog.show();
         viewModel.getTeacherDetailPublicLiveData().observe(this, new Observer<TeacherDetailPublic>() {
             @Override
             public void onChanged(TeacherDetailPublic tdp) {
+                progressDialog.dismiss();
                 teacherDetailPublic = tdp;
-                progressBar.setVisibility(View.GONE);
                 Log.d(TAG, "onChanged: "+teacherDetailPublic.getFirstName());
                 getSupportFragmentManager().beginTransaction().replace(R.id.teacher_detail_frag_cont,new AwardPublic(teacherDetailPublic)).commit();
             }
@@ -85,5 +89,12 @@ public class TeacherAchivements extends AppCompatActivity implements BottomNavig
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.teacher_detail_frag_cont,selectedFragment).commit();
         return true;
+    }
+
+    public void setProgressBar() {
+        progressDialog = new ProgressDialog(TeacherAchivements.this);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
     }
 }

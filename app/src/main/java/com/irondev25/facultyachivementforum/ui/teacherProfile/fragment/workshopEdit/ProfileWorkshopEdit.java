@@ -142,11 +142,11 @@ public class ProfileWorkshopEdit extends Fragment {
                     currentVal = actv.getText().toString();
                     actv.setText("");
                 }
-                else{
-//                    if(actv.getText().toString().equals("")){
-                    actv.setText(currentVal);
-//                    }
-                }
+//                else{
+////                    if(actv.getText().toString().equals("")){
+//                    actv.setText(currentVal);
+////                    }
+//                }
             }
         });
         workshopCertificateDetailTextView = view.findViewById(R.id.workshop_certificateDetail);

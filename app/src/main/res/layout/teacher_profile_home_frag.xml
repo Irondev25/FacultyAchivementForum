@@ -2,7 +2,8 @@
 <ScrollView android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/profile_background">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,12 +20,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="5dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp">
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="6dp">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -44,12 +48,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="5dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp">
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="6dp">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -69,12 +76,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="5dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp">
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="6dp">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -94,12 +104,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="5dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp">
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="6dp">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -119,12 +132,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="5dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp">
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="6dp">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -144,12 +160,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="5dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp">
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="6dp">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -169,12 +188,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="5dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp">
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="6dp">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -194,12 +216,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="5dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp">
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="6dp">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -219,12 +244,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="5dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp">
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="6dp">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -244,12 +272,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="5dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp">
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="6dp">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -269,12 +300,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="5dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp">
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="6dp">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -294,12 +328,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="5dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp">
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="6dp">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -319,12 +356,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="5dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp">
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="6dp">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -344,12 +384,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="5dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp">
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="6dp">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"

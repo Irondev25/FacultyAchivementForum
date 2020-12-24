@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class ProfileJournalEdit extends Fragment {
 
     private ProfileUpdate.OnFragmentInteractionListener mListener;
     String token;
+    String currentVal;
 
     String journalTitle, paperTitle, journalDate, journalType, journalImpactFactor;
     MultipartBody.Part file = null;
@@ -82,17 +84,19 @@ public class ProfileJournalEdit extends Fragment {
             @Override
             public void onChanged(JournalObject journalObject) {
                 if(journalObject != null) {
-                    if(journalObject.getError() == null) {
-                        Toast.makeText(getContext(), "Journal Updated", Toast.LENGTH_SHORT).show();
-                        progressBar.dismiss();
-                        getParentFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment,new ProfileJournal(token)).commit();
-                    }
-                    else{
-                        Toast.makeText(getContext(), journalObject.getError().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                    if(progressBar.isShowing()) {
-                        progressBar.dismiss();
-                    }
+                    Toast.makeText(getContext(), "Journal Updated", Toast.LENGTH_SHORT).show();
+                    progressBar.dismiss();
+                    getParentFragmentManager().beginTransaction().replace(R.id.teacher_profile_fragment,new ProfileJournal(token)).commit();
+                }
+                else if(journalObject.getError() != null) {
+                    Toast.makeText(getContext(), journalObject.getError().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getContext(), "ProfileJournalEdit: Some error occured", Toast.LENGTH_SHORT).show();
+                }
+                if(progressBar.isShowing())
+                {
+                    progressBar.dismiss();
                 }
             }
         });
@@ -120,23 +124,22 @@ public class ProfileJournalEdit extends Fragment {
         });
         journalTypeAutoCompleteTextView = view.findViewById(R.id.teacher_profile_journal_edit_paperType);
         ArrayAdapter<String> paperTypeAdapter = new ArrayAdapter<>(getContext(),R.layout.dropdown_menu_popup_item, GlobalVars.paperList);
+        journalTypeAutoCompleteTextView.setAdapter(paperTypeAdapter);
         journalTypeAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 journalType = GlobalVars.revPaperTypes.get(GlobalVars.paperList.get(position));
+                Log.d(TAG, "onItemClick: " + journalType);
             }
         });
         journalTypeAutoCompleteTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                String currentVal = "";
+                currentVal = "";
                 AutoCompleteTextView actv = (AutoCompleteTextView) v;
                 if(hasFocus) {
                     currentVal = actv.getText().toString();
                     actv.setText("");
-                }
-                else{
-                    actv.setText(currentVal);
                 }
             }
         });
@@ -159,8 +162,14 @@ public class ProfileJournalEdit extends Fragment {
                 journalTitle = journalNameTextInputLayout.getEditText().getText().toString();
                 paperTitle = paperTitleTextInputLayout.getEditText().getText().toString();
                 journalDate = journalDateTextInputLayout.getEditText().getText().toString();
-                journalType = GlobalVars.revPaperTypes.get(journalTypeAutoCompleteTextView.getText().toString());
+                Log.d(TAG, "onClick: " + journalTypeAutoCompleteTextView.getText().toString());
+                if(journalTypeAutoCompleteTextView.getText().toString() != null) {
+                    journalType = GlobalVars.revPaperTypes.get(journalTypeAutoCompleteTextView.getText().toString());
+                }
                 journalImpactFactor = journalImpactFactorTextInputLayout.getEditText().getText().toString();
+                Log.d(TAG, "onClick: "+token+" "+journal.getUrl()+" "+
+                        journalTitle+" "+paperTitle+" "+journalDate+" "+journalType+" "+
+                        journalImpactFactor);
                 viewModel.updateProfileJournal(token,journal.getUrl(),
                         journalTitle,paperTitle,journalDate,journalType,
                         journalImpactFactor,file);

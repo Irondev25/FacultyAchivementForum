@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.irondev25.facultyachivementforum.R;
 import com.irondev25.facultyachivementforum.ui.publicTeacherAchivements.fragments.adapter.AwardAdapterPublic;
@@ -41,6 +42,7 @@ public class AwardPublic extends Fragment implements AwardAdapterPublic.OnDownlo
         View view = inflater.inflate(R.layout.public_award_frag,container,false);
         TextView teacherName = view.findViewById(R.id.pa_teacher_name);
         teacherName.setText(teacherDetailPublic.getFullName());
+
         adapter = new AwardAdapterPublic(this);
         adapter.setResult(teacherDetailPublic);
         RecyclerView recyclerView = view.findViewById(R.id.award_public_recycle_view);

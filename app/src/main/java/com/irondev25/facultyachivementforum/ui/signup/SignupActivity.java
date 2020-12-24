@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -42,6 +43,7 @@ import okhttp3.RequestBody;
 
 public class SignupActivity extends AppCompatActivity {
     private SignUpViewModel viewModel;
+    private ProgressDialog progressDialog;
 
     CircleImageView profilePic;
     FloatingActionButton addPic;
@@ -70,6 +72,7 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        setProgressBar();
 
         gender = GlobalVars.getGenderMap();
         genderList = GlobalVars.getGenderList();
@@ -85,7 +88,7 @@ public class SignupActivity extends AppCompatActivity {
         viewModel.getSignUpResponse().observe(this, new Observer<TeacherSignUp>() {
             @Override
             public void onChanged(TeacherSignUp teacherSignUp) {
-                Log.d("REST", "get response");
+                progressDialog.dismiss();
                 if(teacherSignUp!=null){
                     if(teacherSignUp.getIsError()){
                         Toast.makeText(getApplicationContext(), teacherSignUp.getT().getMessage(), Toast.LENGTH_SHORT).show();
@@ -132,7 +135,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<String> genderAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,genderList);
+        ArrayAdapter<String> genderAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.dropdown_menu_popup_item,genderList);
         genderOption.setAdapter(genderAdapter);
 //        genderOption.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
@@ -260,6 +263,7 @@ public class SignupActivity extends AppCompatActivity {
         /*
          *
          * */
+        progressDialog.show();
         file_name = "attachment; filename="+file_name;
         viewModel.signUpRequest(this.username,this.email,this.firstname,this.lastname,this.sex,this.dept,this.password1,this.password2,this.file,file_name);
     }
@@ -283,5 +287,12 @@ public class SignupActivity extends AppCompatActivity {
             file = MultipartBody.Part.createFormData("profile_pic", originalFile.getName(), filePart);
             profilePic.setImageURI(fileUri);
         }
+    }
+
+    public void setProgressBar() {
+        progressDialog = new ProgressDialog(SignupActivity.this);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
     }
 }
